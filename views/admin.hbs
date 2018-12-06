@@ -1,0 +1,192 @@
+<main>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link {{createFormActive}}" id="createForm" data-toggle="tab" href="#create" role="tab"
+                aria-controls="home" aria-selected="true">Create Form</a>
+        </li>
+        <li class="nav-item">
+            <form id="myform" method="GET" action="/formInfo">
+                {{!-- <input type="hidden" name="name" value="value" /> --}}
+                {{!-- <a onclick="document.getElementById('myform').submit();">click here</a> --}}
+                <a class="nav-link {{formInfoActive}}" id="formHistory" data-toggle="tab" href="#history" role="tab"
+                    aria-controls="history" aria-selected="false" onclick="document.getElementById('myform').submit();">View
+                    Form</a>
+            </form>
+            {{!-- <a class="nav-link" id="formHistory" data-toggle="tab" href="#history" role="tab" aria-controls="history"
+                aria-selected="false" method="GET" action="/formInfo">View Forms</a> --}}
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{attandanceActive}}" id="attendenceTab" data-toggle="tab" href="#attend" role="tab"
+                aria-controls="attend" aria-selected="false">Attendence</a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+
+        <div class="tab-pane fade show {{createFormActive}}" id="create" role="tabpanel" aria-labelledby="home-tab">
+            <form method="POST" action="/createForm" id="formCreation">
+                <div class="form-group row">
+                    <label for="inputEventName" class="col-sm-2 col-form-label">Event Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="eventName" id="inputName" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPlace" class="col-sm-2 col-form-label">Place</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPlace" name="eventPlace" placeholder="Place">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="inputDate" name="eventDate">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
+                    <div class="col-sm-10">
+                        <input type="time" class="form-control" id="inputTime" name="eventTime" placeholder="Time">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputSeats" class="col-sm-2 col-form-label">Seats</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="inputSeats" name="noOfSeats" placeholder="Seats">
+                    </div>
+                </div>
+
+
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Age Limit</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="age" id="gridRadios1" value="option1"
+                                    checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    Above 18
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="age" id="gridRadios2" value="option2">
+                                <label class="form-check-label" for="gridRadios2">
+                                    No Age Limit
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="option1"
+                                    checked>
+                                <label class="form-check-label" for="gridRadios1">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="option2">
+                                <label class="form-check-label" for="gridRadios2">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="form-check ">
+                                <input class="form-check-input" type="radio" name="gender" id="gridRadios3" value="option3">
+                                <label class="form-check-label" for="gridRadios3">
+                                    No restrictions
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    <label for="exampleTextarea">Discription</label>
+                    <textarea class="form-control" id="exampleTextarea" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary">Review Details</button>
+                    </div>
+                </div>
+            </form>
+            {{#if show}}
+            <div>
+                <h1>Form created</h1>
+            </div>
+            {{/if}}
+        </div>
+
+        <div class="tab-pane  {{formInfoActive}}" id="history" role="tabpanel" aria-labelledby="history-tab">
+
+
+            <div>
+
+                {{!-- <div>
+                    <h1>{{title}}</h1>
+                    <h2>{{location}}</h2>
+                    <h3>{{date}}</h3>
+                    <h4>{{time}}</h4>
+                    <h5>{{ageRestriction}}</h5>
+                    <h6>{{genderRestriction}}</h6>
+                    <h7>{{description}}</h7>
+                </div> --}}
+                
+                <ul id="formDetailsList">
+                    {{#each form}}
+                    <form id="idDelete" method="post" action="/adminDelete"></form>
+                    <li>
+                        <div class="jumbotron">
+                            <h1 class="display-4">{{title}}</h1>
+                            <p class="lead">{{description}}</p>
+                            <hr class="my-4">
+                            <p>Location : {{location}}</p>
+                            <p>Date : {{date}}</p>
+                            <p>Time : {{time}}</p>
+                            <p>Age Restriction : {{ageRestriction}}</p>
+                            <p>Gender Restriction : {{genderRestriction}}</p>
+                            
+                            <a id="{{_id}}" class="btn btn-primary btn-lg" href="#" role="button" onclick="document.getElementById('idDelete').submit();">Delete</a>
+                        </div>
+                    </li>
+                    </form>
+                    {{/each}}
+                </ul>
+                
+
+
+
+            </div>
+
+
+            {{!-- <div>
+                <div>
+                    <h1>{{form.title}}</h1>
+                    <h1>{{form.location}}</h1>
+                    <h1>{{form.date}}</h1>
+                    <h1>{{form.time}}</h1>
+                    <h1>{{form.ageRestriction}}</h1>
+                    <h1>{{form.genderRestriction}}</h1>
+                    <h1>{{form.description}}</h1>
+                </div>
+
+            </div> --}}
+
+
+        </div>
+
+        <div class="tab-pane fade" id="attend" role="tabpanel" aria-labelledby="attend-tab">
+            <h1>mshbksdh</h1>
+
+        </div>
+
+    </div>
+</main>

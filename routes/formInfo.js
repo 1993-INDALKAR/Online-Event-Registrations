@@ -1,7 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
-
+const path = require("path");
 
 try{
     router.get("/",async  (req, res) => {
@@ -9,14 +9,15 @@ try{
         // console.log("hi");
 
         let forms =await  data.getAllForms();
-        // forms = JSON.stringify(forms);
-        // console.log(typeof forms);
-        // console.log(forms[0]);
-        // console.log(forms[1]);
-        // forms = forms[11];
-        // console.log(JSON.stringify(forms));
-        // res.status(200).json(forms);
-        res.render('admin',{title:'Admin Page-Form Info',form:forms,formInfoActive:"active",createFormActive:""});
+        // console.log(forms);
+        if(forms.length>0){
+            res.render('admin',{title:'Admin Page-Form Info',form:forms,formInfoActive:"active",createFormActive:"",empty:false});
+        }
+        else{
+
+            res.render('admin',{title:'Admin Page-Form Info',form:forms,formInfoActive:"active",createFormActive:"",empty:true});
+        }
+       
     });
 
     

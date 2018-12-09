@@ -13,14 +13,14 @@ try{
 
         console.log("**********88");
         // console.log( Promise.resolve(data.isEmpty(insert)));
-        debugger;
+        
         let objectEmpty = true;
         await isEmpty(insert);
         // console.log(objectEmpty);
 
         if(!objectEmpty){
-            console.log("hello");
-            res.status(200).render('admin',{title:'Admin Page',show:true,createFormActive:"active",formInfoActive:""});
+            
+            res.status(200).render('admin',{title:'Admin Page',show:true,formInfoActive:"",createFormActive:"active"});
             // res.status(200).json(insert);
         }
         else{
@@ -29,12 +29,14 @@ try{
 
         function isEmpty(obj) {
 
-            console.log(obj);
+            // console.log(obj);
 
             for (var key in obj) {
-                if (obj.hasOwnProperty(key))
-                objectEmpty = false;
+                if (obj.hasOwnProperty(key)){
+                    objectEmpty = false;
                 break;
+                }
+                
             }
         }
 

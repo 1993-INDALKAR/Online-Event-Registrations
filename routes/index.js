@@ -1,7 +1,12 @@
 const createFormRoutes = require("./createForm");
 const formInfoRoutes = require("./formInfo");
+const deleteFormRoutes = require("./deleteForm");
+const editFormAdminRoutes = require("./editAdminForm");
 const data = require("../data");
 const path = require("path");
+const express = require("express");
+const router = express.Router();
+
 
 try{
     const constructorMethod =app =>{
@@ -10,16 +15,15 @@ try{
 
         app.use("/formInfo",formInfoRoutes);
 
+        app.use("/adminDelete",deleteFormRoutes);
+
+        app.use("/adminEditForm",editFormAdminRoutes);
+
         app.get("/admin",(req,res)=>{
             res.render('admin',{title:'Admin Page',createFormActive:"active",formInfoActive:""});
         });
 
-        app.post("/adminDelete",(req,res)=>{
-
-            let list = req.body;
-            console.log("itemsSelected:"+JSON.stringify(list));
-
-        });
+        
     
         app.get("/public/site.css", async (req, res) => {
 

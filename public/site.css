@@ -2,6 +2,57 @@
     background-color: rgba(0,0,0,.2);
 }
 
+main{
+    height: 100%;
+    width: 100%
+}
+
+/* .signup-form{
+    margin-top:36px;
+} */
+
+.title-home{
+    /* background-color: #C5C9B8; */
+    width: 100%;
+    color: whitesmoke;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px 0;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    float: none;
+    font-style: bold;
+    font-size:60px;
+}
+
+#formDetailsList{
+    margin-top:50px;
+}
+
+.editAdmin{
+    height: 45px;
+    width: 132px;
+    font-size: 20px;
+}
+
+.deleteAdmin , .editAdmin{
+margin-top:20px;
+}
+
+/* .box{
+    width:40%;
+} */
+
+/* .first-div div{
+    display:inline;
+} */
+
+.viewForm{
+    margin-top: 30px;
+}
+
 footer{
     font-family: Roboto,sans-serif;
     font-weight: 300;
@@ -12,5 +63,133 @@ footer{
 
     color: #fffffffa;
     background-color: #1c2331!important;
+
+}
+
+/* .marg{
+    margin-top:10px;
+} */
+
+.user-main{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+/* .header-image{ */
+    /* height : 750px; */
+    /* width:100%; */
+    /* background-image: url("http://fis-cal.com/wp-content/uploads/2013/10/EVENTS.png");
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    opacity: 0.8; */
+    
+
+}
+
+.blog h1,p,a{
+    color:blueviolet;
+    
+    
+}
+
+.blog{
+    height:500px;
+    background-image: url("http://fis-cal.com/wp-content/uploads/2013/10/EVENTS.png");
+    background-size: cover;
+    background-position: center;
+    /* height: 100%;
+    width: 100%; */
+    opacity: 0.8;
+}
+
+
+#formCreation{
+    width: 50%;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+
+
+
+
+.card{
+    margin-bottom: 10px;
+}
+
+.right-login{
+    background-color:lavenderblush;
+}
+
+
+#signup-tab{
+    border: 2px solid black;
+    border-radius: 8px;
+  }
+
+#signup-btn, #login-btn
+ {
+    background-color: #1da1f2;
+    color: whitesmoke;
+    border: 2px solid #1da1f2;
+  }
+  
+#signup-btn:hover, #login-btn:hover {
+    background-color: #326ada;
+    color: white;
+    border: 2px solid #326ada;
+  }
+
+#signup-div {
+        margin: auto;
+        width: 60%;
+        height: 100%;
+        }
+
+#column2{
+    background-color:rgb(121, 35, 192);
+    width: 100%;
+    height: 100%;
+} 
+
+.first-p p{
+    display:inline;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#signup-tab{
+    text-align: -webkit-center;
+    margin-bottom: 15%;     
+}
+
+/* #form-group-fname, #form-group-lname, #form-group-email, #form-group-date, #form-group-password, #form-group-r-password, #signup-btn  {
+    width: 90%;
+} */
+
+#signin{
+    margin-top: 8%;
+    margin-right: 3px;
+}
+
+#signup-header{
+    text-align: center;
+}
+
+#footer-div{
+    background-color: #1da1f2;
+}
+
+#pforget{
+    float: right;
+    padding-right: 5%;
 
 }

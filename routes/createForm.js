@@ -20,7 +20,7 @@ try{
 
         if(!objectEmpty){
             
-            res.status(200).render('admin',{title:'Admin Page',show:true,formInfoActive:"",createFormActive:"active"});
+            res.status(200).render('admin',{title:'Admin Page',showMessage:true,formInfoActive:"",createFormActive:"active"});
             // res.status(200).json(insert);
         }
         else{

@@ -1,0 +1,84 @@
+.copyright{
+    background-color: rgba(0,0,0,.2);
+}
+
+footer{
+    font-family: Roboto,sans-serif;
+    font-weight: 300;
+    color: #fffffffa;
+}
+
+.footer-details{
+
+    color: #fffffffa;
+    background-color: #1c2331!important;
+
+}
+
+.user-main{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.card{
+    margin-bottom: 10px;
+}
+
+
+
+
+#signup-tab{
+    border: 2px solid black;
+    border-radius: 8px;
+  }
+
+#signup-btn, #login-btn
+ {
+    background-color: #1da1f2;
+    color: whitesmoke;
+    border: 2px solid #1da1f2;
+  }
+  
+#signup-btn:hover, #login-btn:hover {
+    background-color: #326ada;
+    color: white;
+    border: 2px solid #326ada;
+  }
+
+#signup-div {
+        margin: auto;
+        width: 60%;
+        height: 100%;
+        }
+
+#column2{
+    background-color:rgb(121, 35, 192);
+    width: 100%;
+    height: 100%;
+}        
+
+#signup-tab{
+    text-align: -webkit-center;
+    margin-bottom: 15%;     
+}
+
+#form-group-fname, #form-group-lname, #form-group-email, #form-group-date, #form-group-password, #form-group-r-password, #signup-btn  {
+    width: 90%;
+}
+
+#signin{
+    margin-top: 15%;
+}
+
+#signup-header{
+    text-align: center;
+}
+
+#footer-div{
+    background-color: #1da1f2;
+}
+
+#pforget{
+    float: right;
+    padding-right: 5%;
+}

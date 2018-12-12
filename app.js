@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const configRoutes = require("./routes");
 const path = require('path');
 const hbs = require('express-handlebars');
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.set('view engine','hbs');
 
 
 app.use("/public",express.static(__dirname+"/public/"));
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

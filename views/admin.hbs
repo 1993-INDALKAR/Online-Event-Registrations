@@ -26,7 +26,7 @@
 
     <div class="tab-content" id="myTabContent">
 
-        <div class="tab-pane fade show {{createFormActive}}" id="create" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane   {{createFormActive}}" id="create" role="tabpanel" aria-labelledby="home-tab">
             <h1>{{formInfoActive}}</h1>
             <form method="POST" action="/createForm" id="formCreation">
                 <div class="form-group row">
@@ -140,167 +140,172 @@
 
             <div>
 
-                <ul id="formDetailsList">
+                <ul id="formDetailsList" class="row">
                     {{#each form}}
                     {{!-- <form id="idDelete"> --}}
-                        <li id="li-{{_id}}">
-                            <div class="jumbotron">
+                        <li id="li-{{_id}}" class="col-md-12 col-lg-6">
+                            <div class="jumbotron box">
                                 <h1 id="title-{{_id}}" class="display-4 title-{{_id}}">{{title}}</h1>
                                 <p id="desc-{{_id}}" class="lead">{{description}}</p>
                                 <hr class="my-4">
-                                <p>Location :</p>
-                                <p id="loc-{{_id}}">{{location}}</p>
-                                <p>Date :</p>
-                                <p id="date-{{_id}}">{{date}}</p>
-                                <p>Time :</p>
-                                <p id="time-{{_id}}">{{time}}</p>
-                                <p>Seats :</p>
-                                <p id="seats-{{_id}}">{{seats}}</p>
-                                <p>Age Restriction :</p>
-                                <p id="age-{{_id}}">{{ageRestriction}}</p>
-                                <p>Gender Restriction :</p>
-                                <p id="sex-{{_id}}">{{genderRestriction}}</p>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
-                                        {{!-- <button type="submit" class="btn btn-primary">Review Details</button>
-                                        --}}
-                                        <button id="{{_id}}" onclick="deleteAdmin({{_id}})" class=" deleteAdmin btn btn-primary btn-lg">Delete
-                                            Form</button>
-                                    </div>
+                                <div class="first-p">
+                                    {{!-- <p>Location :</p> --}}
+                                    <p id="loc-{{_id}}">{{location}} | </p>
+                                    {{!-- <p>Date :</p> --}}
+                                    <p id="date-{{_id}}">{{date}} | </p>
+                                    {{!-- <p>Time :</p> --}}
+                                    <p id="time-{{_id}}">{{time}} | </p>
+                                    {{!-- <p>Seats :</p> --}}
+                                    <p id="seats-{{_id}}">{{seats}} Seats | </p>
+                                    {{!-- <p>Age Restriction :</p> --}}
+                                    <p id="age-{{_id}}">{{ageRestriction}} | </p>
+                                    {{!-- <p>Gender Restriction :</p> --}}
+                                    <p id="sex-{{_id}}">{{genderRestriction}}</p>
                                 </div>
 
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
+                                <div class="first-div">
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            {{!-- <button type="submit" class="btn btn-primary">Review Details</button>
+                                            --}}
+                                            <button id="{{_id}}" onclick="deleteAdmin({{_id}})" class=" deleteAdmin btn btn-primary btn-lg">Delete
+                                                Form</button>
+                                        </div>
+                                    </div>
 
-                                        <button type="button" id="{{_id}}" class="editAdmin btn btn-primary"
-                                            data-toggle="modal" data-target="#popupEdit" data-whatever="@mdo">Edit Form</button>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+
+                                            <button type="button" id="{{_id}}" class="editAdmin btn btn-primary"
+                                                data-toggle="modal" data-target="#popupEdit" data-whatever="@mdo">Edit
+                                                Form</button>
 
 
-                                        <div class="modal fade" id="popupEdit" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Edit Form</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="POST" action="/adminEditForm/{{_id}}" id="formEdit">
-                                                            <div class="form-group">
-                                                                <label for="event-name" class="col-form-label ">Event
-                                                                    Name:</label>
-                                                                <input name="name" id="popup-event-name" type="text"
-                                                                    class="form-control " id="event-name">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="location-text" class="col-form-label">Location:</label>
-                                                                <input name="location" type="text" class="form-control"
-                                                                    id="popup-event-loc"></input>
-                                                            </div>
-                                                            <div class="form-group ">
-                                                                <label for="inputDate" class="col-form-label">Date:</label>
-                                                                <input type="date" class="form-control" id="popup-event-date"
-                                                                    name="eventDate">
-                                                            </div>
-                                                            <div class="form-group ">
-                                                                <label for="inputTime" class="col-form-label">Time:</label>
-                                                                <input type="time" class="form-control" id="popup-event-time"
-                                                                    name="eventTime" placeholder="Time">
-                                                            </div>
-                                                            <div class="form-group ">
-                                                                <label for="inputSeats" class=" col-form-label">Seats:</label>
-                                                                <input type="number" class="form-control" id="popup-event-seats"
-                                                                    name="noOfSeats" placeholder="Seats">
-                                                            </div>
-                                                            <fieldset class="form-group">
-                                                                <div class="row">
-                                                                    <legend class="col-form-label col-sm-4 pt-0">Age
-                                                                        Limit</legend>
-                                                                    <div class="col-sm-10">
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="age" id="popup-event-above18"
-                                                                                value="option1">
-                                                                            <label class="form-check-label" for="popup-event-above1">
-                                                                                Above 18
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="age" id="popup-event-noRestrict"
-                                                                                value="option2">
-                                                                            <label class="form-check-label" for="popup-event-noRestrict">
-                                                                                No Age Limit
-                                                                            </label>
-                                                                        </div>
-
-                                                                    </div>
+                                            <div class="modal fade" id="popupEdit" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit Form</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="POST" action="/adminEditForm/{{_id}}" id="formEdit">
+                                                                <div class="form-group">
+                                                                    <label for="event-name" class="col-form-label ">Event
+                                                                        Name:</label>
+                                                                    <input name="name" id="popup-event-name" type="text"
+                                                                        class="form-control " id="event-name">
                                                                 </div>
-                                                            </fieldset>
-                                                            <fieldset class="form-group">
-                                                                <div class="row">
-                                                                    <legend class="col-form-label col-sm-3 pt-0">Gender</legend>
-                                                                    <div class="col-sm-10">
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="gender" id="popup-event-male"
-                                                                                value="option1">
-                                                                            <label class="form-check-label" for="popup-event-male">
-                                                                                Male
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="gender" id="popup-event-female"
-                                                                                value="option2">
-                                                                            <label class="form-check-label" for="popup-event-female">
-                                                                                Female
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="form-check ">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="gender" id="popup-event-bothGender"
-                                                                                value="option3">
-                                                                            <label class="form-check-label" for="popup-event-bothGender">
-                                                                                No restrictions
-                                                                            </label>
+                                                                <div class="form-group">
+                                                                    <label for="location-text" class="col-form-label">Location:</label>
+                                                                    <input name="location" type="text" class="form-control"
+                                                                        id="popup-event-loc"></input>
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <label for="inputDate" class="col-form-label">Date:</label>
+                                                                    <input type="date" class="form-control" id="popup-event-date"
+                                                                        name="eventDate">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <label for="inputTime" class="col-form-label">Time:</label>
+                                                                    <input type="time" class="form-control" id="popup-event-time"
+                                                                        name="eventTime" placeholder="Time">
+                                                                </div>
+                                                                <div class="form-group ">
+                                                                    <label for="inputSeats" class=" col-form-label">Seats:</label>
+                                                                    <input type="number" class="form-control" id="popup-event-seats"
+                                                                        name="noOfSeats" placeholder="Seats">
+                                                                </div>
+                                                                <fieldset class="form-group">
+                                                                    <div class="row">
+                                                                        <legend class="col-form-label col-sm-4 pt-0">Age
+                                                                            Limit</legend>
+                                                                        <div class="col-sm-10">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio"
+                                                                                    name="age" id="popup-event-above18"
+                                                                                    value="option1">
+                                                                                <label class="form-check-label" for="popup-event-above1">
+                                                                                    Above 18
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio"
+                                                                                    name="age" id="popup-event-noRestrict"
+                                                                                    value="option2">
+                                                                                <label class="form-check-label" for="popup-event-noRestrict">
+                                                                                    No Age Limit
+                                                                                </label>
+                                                                            </div>
+
                                                                         </div>
                                                                     </div>
+                                                                </fieldset>
+                                                                <fieldset class="form-group">
+                                                                    <div class="row">
+                                                                        <legend class="col-form-label col-sm-3 pt-0">Gender</legend>
+                                                                        <div class="col-sm-10">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio"
+                                                                                    name="gender" id="popup-event-male"
+                                                                                    value="option1">
+                                                                                <label class="form-check-label" for="popup-event-male">
+                                                                                    Male
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio"
+                                                                                    name="gender" id="popup-event-female"
+                                                                                    value="option2">
+                                                                                <label class="form-check-label" for="popup-event-female">
+                                                                                    Female
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-check ">
+                                                                                <input class="form-check-input" type="radio"
+                                                                                    name="gender" id="popup-event-bothGender"
+                                                                                    value="option3">
+                                                                                <label class="form-check-label" for="popup-event-bothGender">
+                                                                                    No restrictions
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                                <div class="form-group">
+                                                                    <label for="exampleTextarea">Discription:</label>
+                                                                    <textarea class="form-control" id="popup-event-des"
+                                                                        name="description" rows="3"></textarea>
                                                                 </div>
-                                                            </fieldset>
-                                                            <div class="form-group">
-                                                                <label for="exampleTextarea">Discription:</label>
-                                                                <textarea class="form-control" id="popup-event-des"
-                                                                    name="description" rows="3"></textarea>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-10">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close</button>
-                                                                    <button id="{{_id}}" type="submit" class=" editForm btn btn-primary">Save
-                                                                        Form</button>
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-10">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close</button>
+                                                                        <button id="{{_id}}" type="submit" class=" editForm btn btn-primary">Save
+                                                                            Form</button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                        </form>
+                                                            </form>
+                                                        </div>
+
                                                     </div>
+
 
                                                 </div>
 
-
                                             </div>
-
                                         </div>
                                     </div>
+                                    {{!-- //************************************************ --}}
                                 </div>
-
                             </div>
                         </li>
-                    {{!-- </form> --}}
+                        {{!-- </form> --}}
                     {{/each}}
                 </ul>
             </div>

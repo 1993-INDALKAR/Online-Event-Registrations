@@ -20,20 +20,7 @@ $(".deleteAdmin").click(function () {
 
 });
 
-// $(".editForm").click(function () {
 
-//   let url = `http://localhost:3000/adminEditForm/${this.id}`;
-
-//   $.ajax({
-//     method: 'PATCH',
-//     url: url,
-//     success: function (data) {
-//       console.log(data);
-//     }
-//   });
-
-
-// });
 
 
 //for enabling edit pop-up

@@ -19,28 +19,29 @@
 
 <body>
     {{#if show}}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light social-media">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Book my Events</a>
+        <a class="navbar-brand header-logo" href="http://localhost:3000/admin">Book my Events</a>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 {{#if userShow }}
                 <li class="nav-item {{homeActive}} ">
                     <form id="viewForm" method="GET" action="/user">
-                        <a class="nav-link" href="#" class="homeLink" onclick="document.getElementById('viewForm').submit();">Home<span
+                        <a class="nav-link " href="#" class="homeLink" onclick="document.getElementById('viewForm').submit();">Home<span
                                 class="sr-only">(current)</span></a>
-                      
+
                     </form>
                 </li>
 
                 <li class="nav-item {{regActive}} ">
                     <form id="RgisteredForm" method="GET" action="/registeredForms">
-                        <a class="nav-link" href="#" onclick="document.getElementById('RgisteredForm').submit();">Registered Forms</a>
-                       
+                        <a class="nav-link" href="#" onclick="document.getElementById('RgisteredForm').submit();">Registered
+                            Forms</a>
+
                     </form>
 
                 </li>
@@ -49,13 +50,29 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li> --}}
             </ul>
-            <div class="float-lg-right">
-                <form method="GET" action="/logout" class="form-inline my-2 my-lg-0">
-                    {{!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    --}}
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log Out</button>
-                </form>
+            <div class="float-lg-right about-logout">
+                <div class="">
+                    {{!-- <a href="#" class="about-us">About us
+                    </a> --}}
+
+                    <form  class="form-inline about-div my-2 my-lg-0">
+                        <a href="#">
+                            <button class="btn btn-outline-success logout-button my-2 my-sm-0" type="button">About us</button>
+                        </a>
+                        
+                    </form>
+                </div>
+                <div class="">
+                    <form method="GET" action="/logout" class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-success logout-button my-2 my-sm-0" type="submit">Log Out</button>
+                    </form>
+                </div>
             </div>
+
+
+
+        </div>
+
 
         </div>
     </nav>
@@ -63,12 +80,40 @@
 
     {{{ body }}}
 
+    <!-- Start of Modal-->
+    <button type="button" class="btn hide modalClass btn-primary" data-toggle="{{modal}}" data-target="#exampleModal">
+
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="exampleModalLabel">{{Message.title}}</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{{Message.description}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{!-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Modal-->
+
 
     {{#if show}}
     <!-- Footer -->
-    <footer class="page-footer font-small unique-color-dark">
+    <footer mb-0 class="page-footer font-small unique-color-dark">
 
-        <div style="background-color: #6351ce;">
+        <div class="social-media">
             <div class="container">
 
                 <!-- Grid row-->
@@ -76,32 +121,37 @@
 
                     <!-- Grid column -->
                     <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                        <h6 class="mb-0">Get connected with us on social networks!</h6>
+                        <p class="mb-0">Get connected with us on social networks!</p>
                     </div>
                     <!-- Grid column -->
 
                     <!-- Grid column -->
-                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                    <div class="col-md-6 col-lg-7 text-center all-logo text-md-right">
 
                         <!-- Facebook -->
-                        <a class="fb-ic">
-                            <i class="fa fa-facebook white-text mr-4"> </i>
+                        <a class="fb-ic logos" text="facebook" href="#">
+                            {{!-- <img alt="facebook" class="fa fa-facebook white-text mr-4"></img> --}}
+                            facebook
                         </a>
                         <!-- Twitter -->
-                        <a class="tw-ic">
-                            <i class="fa fa-twitter white-text mr-4"> </i>
+                        <a class="tw-ic logos" href="#">
+                            {{!-- <img alt="twitter" class="fa fa-twitter white-text mr-4"></img> --}}
+                            twitter
                         </a>
                         <!-- Google +-->
-                        <a class="gplus-ic">
-                            <i class="fa fa-google-plus white-text mr-4"> </i>
+                        <a class="gplus-ic logos" href="#">
+                            {{!-- <img alt="Google+" class="fa fa-google-plus white-text mr-4"></img> --}}
+                            Google+
                         </a>
                         <!--Linkedin -->
-                        <a class="li-ic">
-                            <i class="fa fa-linkedin white-text mr-4"> </i>
+                        <a class="li-ic logos" href="#">
+                            {{!-- <img alt="linkedin" class="fa fa-linkedin white-text mr-4"></img> --}}
+                            linkedin
                         </a>
                         <!--Instagram-->
-                        <a class="ins-ic">
-                            <i class="fa fa-instagram white-text"> </i>
+                        <a class="ins-ic logos" href="https://www.instagram.com/haribhau_indalkar/?hl=en" target="blank" href="#">
+                            {{!-- <img alt="instagram" class="fa fa-instagram white-text"></img> --}}
+                            Instagram
                         </a>
 
                     </div>
@@ -114,16 +164,16 @@
         </div>
 
         <!-- Footer Links -->
-        <div class="container text-center text-md-left mt-5 footer-details">
+        <div class="container mb-5 mt-5 text-center text-md-left mt-5 footer-details">
 
             <!-- Grid row -->
             <div class="row mt-3">
 
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 mt-5">
 
                     <!-- Content -->
-                    <h6 class="text-uppercase font-weight-bold">Event Registration System</h6>
+                    <p class="text-uppercase font-weight-bold">Event Registration System</p>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>Various events happening around and need to register through their portal.Remember their web
                         address , username and password for all separately.All in one portal for registration and keep
@@ -132,10 +182,10 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-5 mb-4">
 
                     <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Group member</h6>
+                    <p class="text-uppercase font-weight-bold">Group member</p>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>Harish Indalkar </p>
                     <p>Himanshu Chavan </p>
@@ -146,10 +196,10 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-5 mb-4">
 
                     <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold"> compus ID</h6>
+                    <p class="text-uppercase font-weight-bold"> compus ID</p>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>10441759 </p>
                     <p>10443109 </p>
@@ -160,10 +210,10 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mt-5 mb-4">
 
                     <!-- Links -->
-                    <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                    <p class="text-uppercase font-weight-bold">Contact</p>
                     <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                     <p>
                         <i class="fa fa-home mr-3"></i> Hoboken, NJ 07030, US</p>
@@ -184,12 +234,14 @@
         <!-- Footer Links -->
 
         <!-- Copyright -->
-        <div class="footer-copyright copyright text-center py-3">© 2018 Copyright: No.13 group</div>
+        <div class="footer-copyright copyright text-center mb-0 py-3">© 2018 Copyright: No.13 group</div>
         <!-- Copyright -->
 
     </footer>
     <!-- Footer -->
     {{/if}}
+
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

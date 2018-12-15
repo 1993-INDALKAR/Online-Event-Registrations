@@ -3,47 +3,65 @@ const data = require("../data");
 const router = express.Router();
 const path = require("path");
 
-try{
-    router.get("/",async  (req, res) => {
+try {
+    router.get("/", async (req, res) => {
 
-        // console.log("hi");
+        let cookie = req.cookies.name;
 
-        let forms =await  data.getAllForms();
-        // console.log(forms);
-        for(let prop in forms){
+        // if (cookie) {
 
-            if(forms[prop].ageRestriction == true){
-                forms[prop].ageRestriction = "Below 18 Years";
-            }
-            else{
-                forms[prop].ageRestriction = "No Age Restriction"
-            }
+        //     if (cookie.includes("admin")) {
 
-            if(forms[prop].genderRestriction == "M"){
-                forms[prop].genderRestriction = "Male Event"
-            }
-            else if(forms[prop].genderRestriction == "F"){
-                forms[prop].genderRestriction = "Female Event"
-            }
-            else{
-                forms[prop].genderRestriction = "Male/Female Event"
-            }
+                let forms = await data.getAllForms();
 
-        }
-        if(forms.length>0){
-            res.render('admin',{title:'Admin Page-Form Info',form:forms,show:true,formInfoActive:"active",createFormActive:"",empty:false});
-        }
-        else{
+                for (let prop in forms) {
 
-            res.render('admin',{title:'Admin Page-Form Info',form:forms,show:true,formInfoActive:"active",createFormActive:"",empty:true});
-        }
-       
+                    if (forms[prop].ageRestriction == true) {
+                        forms[prop].ageRestriction = "Above 18 Years";
+                    }
+                    else {
+                        forms[prop].ageRestriction = "No Age Restriction"
+                    }
+
+                    if (forms[prop].genderRestriction == "M") {
+                        forms[prop].genderRestriction = "Male Event"
+                    }
+                    else if (forms[prop].genderRestriction == "F") {
+                        forms[prop].genderRestriction = "Female Event"
+                    }
+                    else {
+                        forms[prop].genderRestriction = "Male/Female Event"
+                    }
+
+                }
+                if (forms.length > 0) {
+                    res.render('admin', { title: 'Admin Page-Form Info', form: forms, show: true, formInfoActive: "active", createFormActive: "", empty: false });
+                }
+                else {
+
+                    res.render('admin', { title: 'Admin Page-Form Info', form: forms, show: true, formInfoActive: "active", createFormActive: "", empty: true });
+                }
+
+        //     }
+        //     else {
+        //         //user is trying to access
+
+        //         res.status(403).render("wrongAccess");
+        //     }
+
+        // }
+        // else {
+        //     //user is not logged in
+
+        //     res.status(403).render("notLogged");
+        // }
+
     });
 
-    
-    
-    module.exports = router; 
-    }
-    catch(e){
-        throw console.log("Problem occured in displaying Result Page.");
-    }
+
+
+    module.exports = router;
+}
+catch (e) {
+    throw console.log("Problem occured in displaying Result Page.");
+}

@@ -5,26 +5,54 @@ const router = express.Router();
 
 router.delete("/:id", async (req, res) => {
 
-    // console.log(req.params.id);
+    let cookie = req.cookies.name;
 
-    let del = await data.deleteForm(req.params.id);
+    // if (cookie) {
 
-    console.log(del);
-
-    if (del) {
-
-        let forms = await data.getAllForms();
-        console.log("forms");
-        res.redirect(req.originalUrl);
-        // res.render('admin', { title: 'Admin Page-Form Info', form: forms, formInfoActive: "active", createFormActive: "" });
-
-    }
+    //     if (cookie.name == "admin") {
 
 
 
-    // console.log(del);
+            let del = await data.deleteForm(req.params.id);
 
-    // res.json(del);
+
+
+            let message = {};
+
+
+            if (del) {
+
+                message.title = "Success";
+                message.description = "Successfully Deleted Form."
+
+                res.status(200).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal",showMessage: true });
+                // res.status(200).render('admin', { Message: message, title: 'Admin Page', show: true, formInfoActive: "", createFormActive: "active", modal: "modal",showMessage: true });
+
+            }
+            else {
+
+                message.title = "Error";
+                message.description = "Sorry could not delete form."
+
+                res.status(400).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal" });
+            }
+
+    //     }
+    //     else {
+
+    //         //user is trying to loggin
+
+    //     }
+
+    // }
+    // else {
+    //     //not loggedin
+    // }
+
+
+
+
+
 
 
 });

@@ -1,5 +1,90 @@
 <main>
-    {{#each form}}
-    <h2>{{this.title}}</h2>
-    {{/each}}
+    <div class="row">
+        {{#each form}}
+        <div class="card col-md-12 col-lg-6 col-sm-12">
+            <div class="card-header">
+                <h1>{{this.title}}</h1>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">{{date}} | {{time}} | {{location}} | {{seats}} Seats | {{ageRestriction}} |
+                    {{genderRestriction}}</h2>
+                {{!-- <h6></h6> --}}
+                <h3>{{personName}} Collecting tickets and {{numberOfPersonAttending}} People attending</h3>
+                <p class="card-text">{{description}}</p>
+                <div class="div-form">
+                    <form id="idcomments" method="GET" action="/comments">
+                        <div class="form-group ">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Comments</button>
+
+                            </div>
+
+                        </div>
+                    </form>
+                    <form id="idDelete" method="GET" action="/deleteRegisterUser/{{_id}}">
+                        <div class="form-group ">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Cancel Ticket</button>
+                            </div>
+
+                        </div>
+                    </form>
+                    <form>
+                        <div class="form-group ">
+                            <div>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary">Change
+                                    Registered Event</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+                {{!-- <a href="#" class="btn btn-primary">Go somewhere</a> --}}
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Registered Event</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="idUpdateForm-{{_id}}" method="POST" action="/updateRegisterUser/{{_id}}">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <input id="idname-{{_id}}" type="text" required class="form-control" placeholder="Name of Person Collecting Ticket."
+                            name="personName">
+                    </div>
+
+                    <div class="form-group">
+                        <input id="idnum-{{_id}}" type="number" required class="form-control" name="numOfTickets" placeholder="Number of people attending event.">
+                    </div>
+
+                    <div>
+                        <button type="submit"  class="btn btn-primary">Save
+                            Changes</button>
+                    </div>
+
+
+                </div>
+
+                </form>
+               
+            </div>
+        </div>
+    </div>
+        {{!-- <div class="col-md-12 col-lg-6 col-sm-12">
+            <h2>{{this.title}}</h2>
+        </div> --}}
+        {{/each}}
+    </div>
+
+    
+
 </main>

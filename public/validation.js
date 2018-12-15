@@ -4,6 +4,18 @@
 
 // });
 
+//to display message
+
+let attribute = $(".modalClass").attr("data-toggle");
+
+attribute = attribute.includes("modal");
+if (attribute) {
+
+  $('.modalClass').trigger('click');
+  $(".modalClass").attr("data-toggle", "");
+}
+
+
 //for calling delete routes  
 $(".deleteAdmin").click(function () {
 
@@ -13,12 +25,35 @@ $(".deleteAdmin").click(function () {
     method: 'DELETE',
     url: url,
     success: function (data) {
-      console.log(data);
+      // console.log(data);
+
+      let url = `http://localhost:3000/admin`;
+
+      $('.modalClass').trigger('click');
+      $(".modalClass").attr("data-toggle", "");
+
+      window.location.replace(url);
+     
     }
   });
 
 
 });
+
+// $(".formEdit").click(function () {
+
+//   let url = `http://localhost:3000/adminEditForm/${this.id}`;
+
+//   $.ajax({                              //https://stackoverflow.com/questions/32963736/how-to-make-ajax-get-post-request-in-express-server
+//     method: 'POST',
+//     url: url,
+//     success: function (data) {
+//       // console.log(data);
+//     }
+//   });
+
+
+// });
 
 
 
@@ -37,45 +72,52 @@ $(".editAdmin").click(function () {
   let idSeats = "seats-" + this.id;
 
   var title = document.getElementById(idTitle).innerHTML;
-  $("#popup-event-name").val(title);
+  $("#popup-event-name-" + this.id).val(title);
 
   var desc = document.getElementById(idDesc).innerHTML;
-  $("#popup-event-des").val(desc);
+  $("#popup-event-des-" + this.id).val(desc);
 
   var loc = document.getElementById(idLoc).innerHTML;
-  $("#popup-event-loc").val(loc);
+  loc = loc.replace("|", "").trim();
+  $("#popup-event-loc-" + this.id).val(loc);
 
   var date = document.getElementById(idDate).innerHTML;
-  $("#popup-event-date").val(date);
+  date = date.replace("|", "").trim();
+  $("#popup-event-date-" + this.id).val(date);
 
   var time = document.getElementById(idTime).innerHTML;
-  $("#popup-event-time").val(time);
+  time = time.replace("|", "").trim();
+  $("#popup-event-time-" + this.id).val(time);
 
   var age = document.getElementById(idAge).innerHTML;
-  if (age == "true") {
-    $("#popup-event-above18").prop("checked", true);
+
+  if (age.includes("Above")) {
+
+    $("#popup-event-above18-" + this.id).prop("checked", true);
   }
   else {
-    $("#popup-event-noRestrict").prop("checked", true);
+    $("#popup-event-noRestrict-" + this.id).prop("checked", true);
+
   }
 
 
   var sex = document.getElementById(idSex).innerHTML;
-  if (sex == "M") {
-    $("#popup-event-male").prop("checked", true);
+  if (sex == "Male Event") {
+    $("#popup-event-male-" + this.id).prop("checked", true);
   }
-  else if (sex == "F") {
-    $("#popup-event-female").prop("checked", true);
+  else if (sex == "Female Event") {
+    $("#popup-event-female-" + this.id).prop("checked", true);
   }
   else {
-    $("#popup-event-bothGender").prop("checked", true);
+    $("#popup-event-bothGender-" + this.id).prop("checked", true);
   }
   // $("#popup-event-name").val(title);
 
   var seats = document.getElementById(idSeats).innerHTML;
-  $("#popup-event-seats").val(seats);
+  seats = seats.replace("Seats |", "").trim();
+  $("#popup-event-seats-" + this.id).val(seats);
 
-
+  $('.editForm').removeClass("disabled");
 
   // $(".popup-event-name").val("title-"+this.title);
 
@@ -102,4 +144,79 @@ $('#editAdmin').on('show.bs.modal', function (event) {
   modal.find('.modal-title').text('New message to ' + recipient)
   modal.find('.modal-body input').val(recipient)
 })
+
+
+
+$('#inputName, #inputPlace, #inputDate,#inputTime,#inputSeats,#exampleTextarea').on('change', function () {  //https://stackoverflow.com/questions/41350220/enable-submit-button-if-input-and-checkbox-arent-empty
+  if (allFilled()) {
+    $('.review-button').removeClass("disabled");
+  }
+  else {
+    $('.review-button').addClass("disabled");
+  }
+});
+
+function allFilled() {
+  let filled = true;
+
+  if ($("#inputName").val() == "") {
+    return filled = false;
+  }
+  else if ($("#inputPlace").val() == "") {
+    return filled = false;
+  }
+  else if ($("#inputDate").val() == "") {
+    return filled = false;
+  }
+  else if ($("#inputTime").val() == "") {
+    return filled = false;
+  }
+  else if ($("#inputSeats").val() == "") {
+    return filled = false;
+  }
+  else if ($("#exampleTextarea").val() == "") {
+    return filled = false;
+  }
+
+
+  return filled
+};
+
+
+$('#popup-event-name, #popup-event-loc, #popup-event-date,#popup-event-time,#popup-event-seats,#popup-event-des').on('change', function () {  //https://stackoverflow.com/questions/41350220/enable-submit-button-if-input-and-checkbox-arent-empty
+  if (allPopUpFilled()) {
+    $('.editForm').removeClass("disabled");
+  }
+  else {
+    $('.editForm').addClass("disabled");
+  }
+});
+
+function allPopUpFilled() {
+
+  let filled = true;
+
+  if ($("#popup-event-name").val() == "") {
+    return filled = false;
+  }
+  else if ($("#popup-event-loc").val() == "") {
+    return filled = false;
+  }
+  else if ($("#popup-event-date").val() == "") {
+    return filled = false;
+  }
+  else if ($("#popup-event-time").val() == "") {
+    return filled = false;
+  }
+  else if ($("#popup-event-seats").val() == "") {
+    return filled = false;
+  }
+  else if ($("#popup-event-des").val() == "") {
+    return filled = false;
+  }
+
+
+  return filled
+
+}
 

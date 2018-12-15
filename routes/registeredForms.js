@@ -18,7 +18,7 @@ router.get("/", async(req,res)=>{
 
             let userId = cookie.replace("user","");
 
-            console.log("*****************************************");
+            // console.log("*****************************************");
 
             let formsRegistered = await data.getallRegisteredForms();
 
@@ -65,11 +65,11 @@ router.get("/", async(req,res)=>{
 
                         let formId = forms[prop].formId
 
-                        console.log(typeof formId);
+                        // console.log(typeof formId);
 
                          formDetails =  await data.getForm(formId);
 
-                         console.log(formDetails.title);
+                        //  console.log(formDetails.title);
 
                         //  console.log(JSON.stringify(data.getForm(forms[prop].formId)));
 
@@ -95,7 +95,7 @@ router.get("/", async(req,res)=>{
             // console.log(formDetails);
             // res.json({message:"trying boss"});
 
-            res.render("registeredForms",{form:formDetailsArray});
+            res.render("registeredForms",{form:formDetailsArray,show:true});
 
 
         }
@@ -103,14 +103,17 @@ router.get("/", async(req,res)=>{
         else{
             //admin is trying to logg in
 
-            res.json({message : "admin is trying to logg in"})
+            // res.json({message : "admin is trying to logg in"});
+            res.status(403).render("wrongAccess");
         }
 
     }
     else{
         //user is not logged in
 
-        res.json({message:"user is trying to loggin"});
+        // res.json({message:"user is trying to loggin"});
+
+        res.status(403).render("notLogged");
     }
 
 

@@ -1,5 +1,6 @@
 const createFormRoutes = require("./createForm");
 const formInfoRoutes = require("./formInfo");
+const attandanceInfoRoutes = require("./attandanceInfo");
 const deleteFormRoutes = require("./deleteForm");
 const editFormAdminRoutes = require("./editAdminForm");
 const registerFormRoutes = require("./registerForm");
@@ -7,6 +8,10 @@ const registrationUserRoutes = require("./registerUser");
 const registerFormToUserRoutes = require("./registerFormToUser");
 const loginMiddelWearRoutes = require("./loginMiddelWear");
 const registeredFormsRoutes = require("./registeredForms");
+const deleteRegisterUserRoutes = require("./deleteRegisterUser");
+const commentRoutes = require("./comments");
+const addCommentRoutes = require("./addComments");
+const updateRegisterUserRoutes = require("./updateRegisterUser");
 const userRoutes = require("./userRoute");
 const data = require("../data");
 const path = require("path");
@@ -21,7 +26,11 @@ try{
         
         app.use("/createForm",createFormRoutes);
 
+        app.use("/updateRegisterUser",updateRegisterUserRoutes);
+
         app.use("/formInfo",formInfoRoutes);
+
+        app.use("/addComment",addCommentRoutes);
 
         app.use("/adminDelete",deleteFormRoutes);
 
@@ -34,6 +43,12 @@ try{
         app.use("/registerFormToUser",registerFormToUserRoutes);
 
         app.use("/registeredForms",registeredFormsRoutes);
+
+        app.use("/deleteRegisterUser",deleteRegisterUserRoutes);
+
+        app.use("/attandanceInfo",attandanceInfoRoutes);
+
+        app.use("/comment",commentRoutes);
 
         app.get("/admin",(req,res)=>{
             res.render('admin',{title:'Admin Page',createFormActive:"active",show:true,formInfoActive:""});
@@ -70,6 +85,18 @@ try{
         app.use("/logout",(req,res)=>{
             res.clearCookie('name'); 
             res.redirect("/");
+        });
+
+        app.use("/deleteUser/:id",async (req,res)=>{
+            let dat = await data.deleteUser(req.params.id);
+            let users = await data.getAllUsers();
+            res.json(users);
+        });
+
+        app.use("/deleteRegisteredForms/:id", async (req,res)=>{
+            let dat = await data.deleteRegisterForms(req.params.id);
+            let registerForms = await data.getallRegisteredForms();
+            res.json(registerForms);
         });
 
         

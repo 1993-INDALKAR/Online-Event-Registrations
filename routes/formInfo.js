@@ -8,9 +8,9 @@ try {
 
         let cookie = req.cookies.name;
 
-        // if (cookie) {
+        if (cookie) {
 
-        //     if (cookie.includes("admin")) {
+            if (cookie.includes("admin")) {
 
                 let forms = await data.getAllForms();
 
@@ -42,19 +42,19 @@ try {
                     res.render('admin', { title: 'Admin Page-Form Info', form: forms, show: true, formInfoActive: "active", createFormActive: "", empty: true });
                 }
 
-        //     }
-        //     else {
-        //         //user is trying to access
+            }
+            else {
+                //user is trying to access
 
-        //         res.status(403).render("wrongAccess");
-        //     }
+                res.status(403).render("wrongAccess");
+            }
 
-        // }
-        // else {
-        //     //user is not logged in
+        }
+        else {
+            //user is not logged in
 
-        //     res.status(403).render("notLogged");
-        // }
+            res.status(403).render("notLogged");
+        }
 
     });
 

@@ -7,19 +7,16 @@ let path = require("path");
 
 router.post("/:id", async (req, res) => {
 
-    // console.log(req.body);
-
-    // console.log(req.params.id);
 
     let formData = req.body;
 
     let formId = req.params.id;
 
-    // console.log(req.cookies);
+ 
 
     let cookie = req.cookies.name;
 
-    console.log("cookie" + cookie);
+   
 
     let userId;
 

@@ -17,43 +17,35 @@ if (attribute) {
 
 
 //for calling delete routes  
-$(".deleteAdmin").click(function () {
+// $(".deleteAdmin").click(function () {
 
-  let url = `http://localhost:3000/adminDelete/${this.id}`;
-
-  $.ajax({                              //https://stackoverflow.com/questions/32963736/how-to-make-ajax-get-post-request-in-express-server
-    method: 'DELETE',
-    url: url,
-    success: function (data) {
-      // console.log(data);
-
-      let url = `http://localhost:3000/admin`;
-
-      $('.modalClass').trigger('click');
-      $(".modalClass").attr("data-toggle", "");
-
-      window.location.replace(url);
-     
-    }
-  });
-
-
-});
-
-// $(".formEdit").click(function () {
-
-//   let url = `http://localhost:3000/adminEditForm/${this.id}`;
+//   let url = `http://localhost:3000/adminDelete/${this.id}`;
 
 //   $.ajax({                              //https://stackoverflow.com/questions/32963736/how-to-make-ajax-get-post-request-in-express-server
-//     method: 'POST',
+//     method: 'DELETE',
 //     url: url,
 //     success: function (data) {
 //       // console.log(data);
+
+//       let url = `http://localhost:3000/admin`;
+
+//       $('.modalClass').trigger('click');
+//       $(".modalClass").attr("data-toggle", "");
+
+//       window.location.replace(url);
+
 //     }
 //   });
 
 
 // });
+
+$("#idAbout").click(function () {
+
+  let url = "http://google.com";
+  window.location.replace(url);
+
+});
 
 
 
@@ -61,7 +53,7 @@ $(".deleteAdmin").click(function () {
 //for enabling edit pop-up
 
 $(".editAdmin").click(function () {
-  console.log(this.id);
+
   let idTitle = "title-" + this.id;
   let idDesc = "desc-" + this.id;
   let idLoc = "loc-" + this.id;
@@ -119,23 +111,10 @@ $(".editAdmin").click(function () {
 
   $('.editForm').removeClass("disabled");
 
-  // $(".popup-event-name").val("title-"+this.title);
-
-  // let url = `http://localhost:3000/getDetail/${this.id}`;
-
-  // $.ajax({                              
-  //    method: 'GET',
-  //   url: url,
-  //   success: function (data) {
-  //     console.log(data);
-  //   }
-  // });
-
 
 });
 
 $('#editAdmin').on('show.bs.modal', function (event) {
-  debugger;
   var button = $(event.relatedTarget) // Button that triggered the modal
   var recipient = button.data('whatever') // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -177,41 +156,96 @@ function allFilled() {
   else if ($("#exampleTextarea").val() == "") {
     return filled = false;
   }
+  else if ($("#inputcost").val() == "") {
+    return filled = false;
+  }
 
 
   return filled
 };
 
 
-$('#popup-event-name, #popup-event-loc, #popup-event-date,#popup-event-time,#popup-event-seats,#popup-event-des').on('change', function () {  //https://stackoverflow.com/questions/41350220/enable-submit-button-if-input-and-checkbox-arent-empty
-  if (allPopUpFilled()) {
-    $('.editForm').removeClass("disabled");
+// $('#popup-event-name, #popup-event-loc, #popup-event-date,#popup-event-time,#popup-event-seats,#popup-event-des').on('change', function () {  //https://stackoverflow.com/questions/41350220/enable-submit-button-if-input-and-checkbox-arent-empty
+//   if (allPopUpFilled()) {
+//     $('.editForm').removeClass("disabled");
+//   }
+//   else {
+//     $('.editForm').addClass("disabled");
+//   }
+// });
+
+// function allPopUpFilled() {
+
+//   let filled = true;
+
+//   if ($("#popup-event-name").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-loc").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-date").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-time").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-seats").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-des").val() == "") {
+//     return filled = false;
+//   }
+//   else if ($("#popup-event-cost").val() == "") {
+//     return filled = false;
+//   }
+
+
+//   return filled
+
+// }
+
+$('.personCollectingTicket, .noOfPeopleComming').on('change', function () {
+
+  let id = this.id;
+  id = id.replace("person-name-", "");
+  id = id.replace("noOfPeople-", "");
+
+  let buttonId = "#confirm";
+  buttonId += `-${id}`;
+
+  var num = `#noOfPeople-${id}`;
+
+  if (affRegisterFilled(id)) {
+
+    $(buttonId).removeClass("disabled");
+
+    let cost = document.getElementById("reg-cost").innerHTML;
+    cost = cost.replace("$","");
+
+    var $jqValue = $('#cost-display');
+
+    $(num).on('input', function (event) {
+      let sum = num * cost;
+      $jqValue.html(sum);
+    });
   }
   else {
-    $('.editForm').addClass("disabled");
+    $(buttonId).addClass("disabled");
   }
 });
 
-function allPopUpFilled() {
+function affRegisterFilled(id) {
 
   let filled = true;
 
-  if ($("#popup-event-name").val() == "") {
+  let name = `#person-name-${id}`;
+  let num = `#noOfPeople-${id}`;
+
+  if ($(name).val() == "") {
     return filled = false;
   }
-  else if ($("#popup-event-loc").val() == "") {
-    return filled = false;
-  }
-  else if ($("#popup-event-date").val() == "") {
-    return filled = false;
-  }
-  else if ($("#popup-event-time").val() == "") {
-    return filled = false;
-  }
-  else if ($("#popup-event-seats").val() == "") {
-    return filled = false;
-  }
-  else if ($("#popup-event-des").val() == "") {
+  else if ($(num).val() == "" || $(num).val() > 10) {
     return filled = false;
   }
 
@@ -219,4 +253,5 @@ function allPopUpFilled() {
   return filled
 
 }
+
 

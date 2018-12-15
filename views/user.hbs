@@ -5,7 +5,7 @@
         <div class="col-md-6 px-0">
           <h1 class="display-4 font-italic">You can now book tickets for your friends...</h1>
           <p class="lead my-3">Book my Events helps you to easily book tickets and need not to worry about. Because you have to pay at the event. Book tickets for your friends and Dont forget to bring your Id with you.</p>
-          <p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Don't want to buy no problem.Please take a look at the events...</a></p>
+          <p class="lead mb-0"><a href="#idForms" class="text-white font-weight-bold">Don't want to buy no problem.Please take a look at the events...</a></p>
         </div>
         <div class="col-md-6 header-image">
 
@@ -13,19 +13,20 @@
       </div>
 
     </div>
-    <div class="row">
+    <div class="row" id="idForms">
+        {{#if form}}
         {{#each form}}
 
         <div class="col-lg-2 col-md-0 col-sm-0"></div>
         <div class=" mb-r col-lg-8 col-md-12 col-sm-12">
             <div class="card  text-center">
-                <div class="card-header">
-                    <h5>{{title}}</h5>
+                <div class="social-media entire-white card-header">
+                    <h1>{{title}}</h1>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">{{date}} | {{time}} | {{location}} </p>
-                    <h6 class="card-title">{{description}}</h6>
-                    <p class="card-text">{{seats}} Seats | {{ageRestriction}} | {{genderRestriction}} </p>
+                <div class="card-body entire-black">
+                    <p class="card-text entire-black">{{date}} | {{time}} | {{location}} </p>
+                    <h2 class="card-title entire-black">{{description}}</h2>
+                    <p class="card-text entire-black">{{seats}} Seats | {{ageRestriction}} | {{genderRestriction}} </p>
                     <form id="idregister" method="GET" action="/register/{{_id}}">
                         <div class="form-group ">
                             <div>
@@ -46,13 +47,17 @@
                     </form>
 
                 </div>
-                <div class="card-footer text-muted">
-                    <h5>${{cost}}</h5>
+                <div class="card-footer social-media text-muted">
+                    <p5 class="entire-white">${{cost}}</p>
                 </div>
             </div>
         </div>
         <div class="col-lg-2 col-md-0"></div>
 
         {{/each}}
+        
+        {{else}}
+        
+        {{/if}}
     </div>
 </main>

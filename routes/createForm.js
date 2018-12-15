@@ -6,64 +6,81 @@ const router = express.Router();
 try {
     router.post("/", async (req, res) => {
 
-        // let cookie = req.cookies.name;
+        let cookie = req.cookies.name;
 
-        // if (cookie) {
+        if (cookie) {
 
-        //     if (cookie.includes("admin")) {
+            if (cookie.includes("admin")) {
 
         let body = req.body;
 
         let message = {};
 
-        
+                let dateArr = body.eventDate.split("-");
 
-  
+                // console.log("body.eventDate"+body.eventDate);
+                let today = new Date();
+                // console.log("today"+today.getUTCDate());
 
         if (body.eventName.length == 0) {
 
             console.log(body.eventName.length);
-            message.description = "Event Name is Empty. Could not create Form.";
+            message.description = "Event Name is Empty. Sorry Could not create Form.";
 
         }
         else if (body.eventPlace.length == 0) {
            
-            message.description = "Event Locationis Empty. Could not create Form.";
+            message.description = "Event Locationis Empty. Sorry Could not create Form.";
 
         }
         else if (body.eventDate.length == 0) {
 
-            message.description = "Event Date is Empty. Could not create Form."
+            message.description = "Event Date is Empty. Sorry Could not create Form."
+
+        }
+        else if (dateArr[0] < today.getFullYear() || ( dateArr[1] <= today.getMonth() && dateArr[2] <= today.getDate()) ) {
+
+            message.description = "Event Date must be greater than todays date. Sorry Could not create Form."
 
         }
         else if (body.eventTime.length == 0) {
 
-            message.description = "Event Time is Empty. Could not create Form."
+            message.description = "Event Time is Empty. Sorry Could not create Form."
 
         }
         else if (body.noOfSeats.length == 0) {
 
-            message.description = "Event Acomodation seats is Empty. Could not create Form."
+            message.description = "Event Acomodation seats is Empty. Sorry Could not create Form."
 
         }
         else if(body.noOfSeats.includes("-")){
 
-            message.description = "Event Acomodation seats Cannot be Negative. Could not create Form."
+            message.description = "Event Acomodation seats Cannot be Negative. Sorry Could not create Form."
+
+        }
+        else if(body.noOfSeats == "0"){
+
+            message.description = "Event Acomodation seats Cannot be zero. Sorry Could not create Form."
+
+        }
+        else if(body.cost.includes("-")){
+
+            message.description = "Event cost seats cannot be Negative. Sorry Could not create Form."
 
         }
         else if (body.age.length == 0) {
 
-            message.description = "Age restriction is Empty. Could not create Form."
+            message.description = "Age restriction is Empty. Sorry Could not create Form."
 
         }
         else if (body.gender.length == 0) {
 
-            message.description = "Gender Restriction is Empty. Could not create Form."
+            message.description = "Gender Restriction is Empty. Sorry Could not create Form."
 
         }
         else if (body.description.length == 0) {
 
-            message.description = "Event Description is Empty. Could not create Form."
+            message.description = "Event Description is Empty. Sorry Could not create Form."
 
         }
 
@@ -120,17 +137,20 @@ try {
 
 
 
-        // }
-        // else {
-        // // user trying to loggin
-        // }
+        }
+        else {
+        // user trying to loggin
+        res.status(403).render("wrongAccess");
+        }
 
 
-        // }
-        // else {
-        // // not logged in
+        }
+        else {
+        // not logged in
 
-        // }
+        res.status(403).render("notLogged");
+
+        }
 
 
 

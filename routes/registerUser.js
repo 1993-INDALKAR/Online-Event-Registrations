@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 
 router.post("/",async(req,res)=>{
-    // console.log(req.body);
+
+    try{
+
+    
+   
     let error = [];
 
     let firstName = req.body.First_Name;
@@ -30,10 +34,9 @@ router.post("/",async(req,res)=>{
     }
 
     let year = dob.split('-')[0] ;
-    // console.log(year);
+   
     let currentTime = new Date();
-    // console.log(parseInt(year));
-    // console.log(parseInt(currentTime.getFullYear()));
+   
 
     if(parseInt(year) >  parseInt(currentTime.getFullYear())){
 
@@ -43,18 +46,16 @@ router.post("/",async(req,res)=>{
 
     let userExist = await data.checkEmail(email);
 
-    // console.log(JSON.stringify(userExist));
-    console.log(userExist);
+  
 
     if(JSON.stringify(userExist).length>0 && userExist != null){
 
-        // console.log();
+        
         error.push("A User with same E-mail Id already exists");
     }
 
    
 
-    // for()
 
     if(error.length>0){
         res.render('login',{title:'Login Page',show:false,error:error});
@@ -75,18 +76,23 @@ router.post("/",async(req,res)=>{
 
         if(registerUser.message){
 
-            console.log(registerUser.message);
+           
             error = [];
             error.push("Could not create User. Try after sometime.")
             res.render('login',{title:'Login Page',show:false,error:error});
         }
         else{
-            console.log(registerUser);
+            
             res.render('login',{title:'Login Page',show:false,success:true,successMessage:"User Created Successfully."});
         }
 
 
     }
+
+}
+catch(e){
+    console.log(e);
+}
 
 
 

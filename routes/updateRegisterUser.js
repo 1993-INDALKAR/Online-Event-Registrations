@@ -21,14 +21,17 @@ try {
                 let userid = cookie.replace("user", "");
 
                 let dataComment = req.body;
+
                 console.log(dataComment);
 
                 let formId = req.params.id;
 
+                
+
 
                 let update = await data.updateUserRegisteredEvent(dataComment, formId, userid);
 
-                console.log(update.hasOwnProperty("message"));
+               
 
                 if (!update.hasOwnProperty("message")) {
 

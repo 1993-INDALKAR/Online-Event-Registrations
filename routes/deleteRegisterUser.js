@@ -9,11 +9,11 @@ try {
         let cookie = req.cookies.name;
         if (cookie) {
 
-            // console.log("1");
+           
 
             if (cookie.includes("user")) {
 
-                // console.log("2");
+               
 
                 let formId = req.params.id;
 
@@ -34,7 +34,6 @@ try {
 
                     res.redirect('/user?message=' + message);
 
-                    // res.redirect("/user");
                 }
 
 
@@ -57,7 +56,7 @@ try {
         else {
             //not loggedin
 
-            // console.log("3");
+       
 
             res.status(403).render("notLogged");
         }

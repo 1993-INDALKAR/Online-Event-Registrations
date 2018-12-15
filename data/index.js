@@ -38,22 +38,12 @@ module.exports = {
                 };
 
 
-                // let reg = await formRegisterCollection.updateOne(, updateCommand);
-
-                // formRegisterCollection.update( {_id : user.id , "user.id" : userId} ,
-                //    {$set : {updateData}} ,
-                //    false ,
-                //    true);
-
-                // let reg = formRegisterCollection.updateOne(
-                //     { },
-                //     { $set : { "user.$[usr].name" : data.personName, "user$[usr].number" : data.number } },
-                //     { arrayFilters : [ {"user.id" : { $eq: userId } } ]
-                //       }
-                //  );
+                console.log("query"+query);
+                console.log("updateCommand"+updateCommand);
 
                 let reg = formRegisterCollection.updateOne(
-                    { "user.id": userId },
+                    { "formId":formId,
+                      "user.id": userId },
                     {
                         $set: {
                             "user.$.name": updateData.name,
@@ -601,7 +591,7 @@ module.exports = {
                 ageRestriction: ageRestriction,
                 genderRestriction: genderRestriction,
                 description: body.description,
-                cost: body.costForOne
+                cost: body.cost
             }
 
 
@@ -802,6 +792,13 @@ module.exports = {
             }
             else {
                 return { message: "Gender is Required." };
+            }
+
+            if (updateForm.cost.length > 0) {
+                updateFormData.cost = updateForm.cost;
+            }
+            else {
+                return { message: "Cost is Required." };
             }
 
 

@@ -7,9 +7,9 @@ router.post("/:id", async (req, res) => {
 
     let cookie = req.cookies.name;
 
-    // if (cookie) {
+    if (cookie) {
 
-    //     if (cookie.includes("admin")) {
+        if (cookie.includes("admin")) {
 
             let message = {};
 
@@ -20,48 +20,53 @@ router.post("/:id", async (req, res) => {
             
         if (body.name.length == 0) {
 
-            console.log(body.eventName.length);
-            message.description = "Event Name is Empty. Could not create Form.";
+            // console.log(body.eventName.length);
+            message.description = "Event Name is Empty. Sorry Could not update Form.";
 
         }
         else if (body.location.length == 0) {
            
-            message.description = "Event Locationis Empty. Could not create Form.";
+            message.description = "Event Locationis Empty. Sorry Could not update Form.";
 
         }
         else if (body.eventDate.length == 0) {
 
-            message.description = "Event Date is Empty. Could not create Form."
+            message.description = "Event Date is Empty. Sorry Could not update Form."
 
         }
         else if (body.eventTime.length == 0) {
 
-            message.description = "Event Time is Empty. Could not create Form."
+            message.description = "Event Time is Empty. Sorry Could not update Form."
 
         }
         else if (body.noOfSeats.length == 0) {
 
-            message.description = "Event Acomodation seats is Empty. Could not create Form."
+            message.description = "Event Acomodation seats is Empty. Sory Could not update Form."
+
+        }
+        else if(body.cost.includes("-")){
+
+            message.description = "Event cost seats cannot be Negative. Sorry Could not create Form."
 
         }
         else if(body.noOfSeats.includes("-")){
 
-            message.description = "Event Acomodation seats Cannot be Negative. Could not create Form."
+            message.description = "Event Acomodation seats Cannot be Negative. Sorry Could not update Form."
 
         }
         else if (body.age.length == 0) {
 
-            message.description = "Age restriction is Empty. Could not create Form."
+            message.description = "Age restriction is Empty. Sorry Could not update Form."
 
         }
         else if (body.gender.length == 0) {
 
-            message.description = "Gender Restriction is Empty. Could not create Form."
+            message.description = "Gender Restriction is Empty. Sorry Could not update Form."
 
         }
         else if (body.description.length == 0) {
 
-            message.description = "Event Description is Empty. Could not create Form."
+            message.description = "Event Description is Empty. Sorry Could not update Form."
 
         }
 
@@ -121,15 +126,18 @@ router.post("/:id", async (req, res) => {
             
 
 
-    //     }
-    //     else {
-    //         //user is trying to access
-    //     }
+        }
+        else {
+            //user is trying to access
 
-    // }
-    // else {
-    //     //user is not logged in
-    // }
+            res.status(403).render("wrongAccess");
+        }
+
+    }
+    else {
+        //user is not logged in
+        res.status(403).render("notLogged");
+    }
 
 
 });

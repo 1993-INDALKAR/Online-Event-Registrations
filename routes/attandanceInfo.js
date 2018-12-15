@@ -10,11 +10,11 @@ try {
 
         let registeredData = [];
 
-        // if (cookie) {
+        if (cookie) {
 
         //     console.log('cookie.includes("admin")'+cookie.includes("admin"));
 
-        //     if (cookie.includes("admin")) {
+            if (cookie.includes("admin")) {
 
 
 
@@ -79,15 +79,15 @@ try {
 
 
 
-        //     }
-        //     else {
-        //         res.status(403).render("wrongAccess");
-        //     }
+            }
+            else {
+                res.status(403).render("wrongAccess");
+            }
 
-        // }
-        // else {
-        //     res.status(403).render("notLogged");
-        // }
+        }
+        else {
+            res.status(403).render("notLogged");
+        }
 
 
     });

@@ -14,6 +14,8 @@ try {
 
         let formId = req.params.id;
 
+        var userShow = true;
+
         if (cookie) {
 
             let showaddComment = "show";
@@ -23,6 +25,7 @@ try {
 
             if (!cookie.includes("user")) {
                 showaddComment = "hide";
+                userShow = false;
             }
             else {
                 userId = cookie.replace("user", "");
@@ -76,7 +79,7 @@ try {
 
 
 
-            res.status(200).render("comments", { title: "Comments", show: true, dataComment: dataComment, form: formDetails, showaddComment: showaddComment });
+            res.status(200).render("comments", { title: "Comments", userShow:userShow, show: true, dataComment: dataComment, form: formDetails, showaddComment: showaddComment });
 
         }
         else {

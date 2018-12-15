@@ -1,5 +1,5 @@
 <main>
-
+    {{#if dataComment}}
     <div class="container">
 
         <div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="card-body ">
                         <blockquote class="blockquote ">
-                            <p>{{comment}}</p>
+                            <p class="entire-black">{{comment}}</p>
                             <footer class="blockquote-footer">{{name}}</footer>
                         </blockquote>
                     </div>
@@ -43,7 +43,11 @@
         </div>
 
     </div>
-
+    {{else}}
+    <div>
+        <h1>Comments are not added by user</h1>
+    </div>
+    {{/if}}
     {{!-- </div> --}}
 
 </main>

@@ -36,12 +36,16 @@ try{
             }
             else{
                 //admin doesnt have right to add comments
+
+                res.status(403).render("wrongAccess");
             }
 
         }
         else{
 
             //please logg in first
+
+            res.status(403).render("notLogged");
         }
 
     });

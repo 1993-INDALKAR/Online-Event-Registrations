@@ -19,106 +19,155 @@ const express = require("express");
 const router = express.Router();
 
 
-try{
-    const constructorMethod =app =>{
+try {
+    const constructorMethod = app => {
 
         
         
-        app.use("/createForm",createFormRoutes);
+        app.use("/adminDelete", deleteFormRoutes);
 
-        app.use("/updateRegisterUser",updateRegisterUserRoutes);
+        app.use("/createForm", createFormRoutes);
 
-        app.use("/formInfo",formInfoRoutes);
+        app.use("/updateRegisterUser", updateRegisterUserRoutes);
 
-        app.use("/addComment",addCommentRoutes);
+        app.use("/formInfo", formInfoRoutes);
 
-        app.use("/adminDelete",deleteFormRoutes);
+        app.use("/addComment", addCommentRoutes);
 
-        app.use("/adminEditForm",editFormAdminRoutes);
 
-        app.use("/registrationUser",registrationUserRoutes);
+        app.use("/adminEditForm", editFormAdminRoutes);
 
-        app.use("/register",registerFormRoutes);
+        app.use("/registrationUser", registrationUserRoutes);
 
-        app.use("/registerFormToUser",registerFormToUserRoutes);
+        app.use("/register", registerFormRoutes);
 
-        app.use("/registeredForms",registeredFormsRoutes);
+        app.use("/registerFormToUser", registerFormToUserRoutes);
 
-        app.use("/deleteRegisterUser",deleteRegisterUserRoutes);
+        app.use("/registeredForms", registeredFormsRoutes);
 
-        app.use("/attandanceInfo",attandanceInfoRoutes);
+        app.use("/deleteRegisterUser", deleteRegisterUserRoutes);
 
-        app.use("/comment",commentRoutes);
+        app.use("/attandanceInfo", attandanceInfoRoutes);
 
-        app.get("/admin",(req,res)=>{
-            res.render('admin',{title:'Admin Page',createFormActive:"active",show:true,formInfoActive:""});
+        app.use("/comment", commentRoutes);
+
+        app.get("/admin", (req, res) => {
+
+            let cookie = req.cookies.name;
+            if (cookie) {
+
+                if (cookie.includes("admin")) {
+                    res.status(200).render('admin', { title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "" });
+                }
+                else {
+
+                    //user is trying to login
+                    res.status(403).render("wrongAccess");
+                }
+
+            }
+            else {
+
+                res.status(403).render("notLogged");
+                //user is not logged in
+
+            }
+
+
         });
 
-        app.use("/user",userRoutes);
+        
 
-        app.get("/allUsers",async(req,res)=>{
+        
+
+        app.use("/user", userRoutes);
+
+        app.get("/allUsers", async (req, res) => {
             let users = await data.getAllUsers();
             res.json(users);
         });
 
-        app.get("/allforms",async(req,res)=>{
+        app.get("/allforms", async (req, res) => {
 
             let forms = await data.getAllForms();
 
             res.json(forms);
         })
 
-        app.get("/allform/:id",async(req,res)=>{
+        app.get("/allform/:id", async (req, res) => {
 
             let forms = await data.getForm(req.params.id);
 
             res.json(forms);
         })
 
-        app.get("/allRegisterForms",async(req,res)=>{
+        app.get("/allRegisterForms", async (req, res) => {
             let reg = await data.getRegisterUserToForm();
             res.json(reg);
         });
 
-        app.use("/login",loginMiddelWearRoutes);
+        app.use("/login", loginMiddelWearRoutes);
 
-        app.use("/logout",(req,res)=>{
-            res.clearCookie('name'); 
+        app.use("/logout", (req, res) => {
+            res.clearCookie('name');
             res.redirect("/");
         });
 
-        app.use("/deleteUser/:id",async (req,res)=>{
+        app.use("/deleteUser/:id", async (req, res) => {
             let dat = await data.deleteUser(req.params.id);
             let users = await data.getAllUsers();
             res.json(users);
         });
 
-        app.use("/deleteRegisteredForms/:id", async (req,res)=>{
+        app.use("/deleteRegisteredForms/:id", async (req, res) => {
             let dat = await data.deleteRegisterForms(req.params.id);
             let registerForms = await data.getallRegisteredForms();
             res.json(registerForms);
         });
 
-        
-    
+
+
         app.get("/public/site.css", async (req, res) => {
 
-            let filePath = await path.join(__dirname,"../css/style.css");
-       
+            let filePath = await path.join(__dirname, "../css/style.css");
+
             res.sendFile(filePath);
         });
 
 
-        app.use("/",(req,res)=>{
+        app.use("/", (req, res) => {
             // let filePath = path.join(__dirname,"../public/index.html");
-            res.render('login',{title:'Login Page',show:false});
-            // res.sendFile(filePath,{title:'Book my Event' });
+            let cookie = req.cookies.name;
+            if (cookie) {
+
+                if (cookie.includes("user")) {
+                    res.status(200).redirect("/user");
+                }
+                else {
+                    res.status(200).redirect("/admin");
+                }
+
+            }
+            else {
+
+                res.status(200).render('login', { title: 'Login Page', show: false });
+
+            }
+
+
         });
+
+        app.use("*",(req,res)=>{
+
+            res.status(404).render("pageNotFound");
+
+        });
+
     };
 
     module.exports = constructorMethod;
 }
-catch(e){
+catch (e) {
     throw console.log("Problem occured in Displaying Page.");
 }
 

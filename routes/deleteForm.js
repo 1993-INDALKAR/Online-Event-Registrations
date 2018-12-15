@@ -3,13 +3,15 @@ const data = require("../data");
 const formInfoRoutes = require("./formInfo");
 const router = express.Router();
 
-router.delete("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
 
     let cookie = req.cookies.name;
 
-    // if (cookie) {
+    // console.log(cookie);
 
-    //     if (cookie.name == "admin") {
+    if (cookie) {
+
+        if (cookie.includes("admin")) {
 
 
 
@@ -19,17 +21,23 @@ router.delete("/:id", async (req, res) => {
 
             let message = {};
 
+            // console.log(del);
 
             if (del) {
 
                 message.title = "Success";
                 message.description = "Successfully Deleted Form."
 
-                res.status(200).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal",showMessage: true });
+                console.log("message"+message);
+
+                res.status(200).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal" });
                 // res.status(200).render('admin', { Message: message, title: 'Admin Page', show: true, formInfoActive: "", createFormActive: "active", modal: "modal",showMessage: true });
+                // res.status(200).render("admin", { modal: "modal", Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "" });
 
             }
             else {
+
+                console.log("message"+message);
 
                 message.title = "Error";
                 message.description = "Sorry could not delete form."
@@ -37,17 +45,19 @@ router.delete("/:id", async (req, res) => {
                 res.status(400).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal" });
             }
 
-    //     }
-    //     else {
+        }
+        else {
 
-    //         //user is trying to loggin
+            //user is trying to loggin
+            res.status(403).render("wrongAccess");
 
-    //     }
+        }
 
-    // }
-    // else {
-    //     //not loggedin
-    // }
+    }
+    else {
+        //not loggedin
+        res.status(403).render("notLogged");
+    }
 
 
 

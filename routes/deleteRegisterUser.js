@@ -1,6 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
+const xss = require("xss");
 
 try {
 
@@ -15,7 +16,7 @@ try {
 
                
 
-                let formId = req.params.id;
+                let formId = xss(req.params.id);
 
                 let userId = cookie.replace("user", "");
 

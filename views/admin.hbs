@@ -1,13 +1,13 @@
 <main>
     <ul class="nav nav-tabs admin-nav" id="myTab" role="tablist">
-        <li class="nav-item">
+        <li class="nav-item bolder-age nav-custom-button">
             <form id="createForm" method="GET" action="/admin"></form>
-            <a class="nav-link {{createFormActive}}" id="createForm" data-toggle="tab" href="#create" role="tab"
+            <a class="nav-link cf {{createFormActive}}" id="createForm" data-toggle="tab" href="#create" role="tab"
                 aria-controls="home" onclick="document.getElementById('createForm').submit();" aria-selected="true">Create
                 Form</a>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item bolder-age nav-custom-button">
             <form id="viewForm" method="GET" action="/formInfo">
                 {{!-- <input type="hidden" name="name" value="value" /> --}}
                 {{!-- <a onclick="document.getElementById('myform').submit();">click here</a> --}}
@@ -18,10 +18,11 @@
             {{!-- <a class="nav-link" id="formHistory" data-toggle="tab" href="#history" role="tab" aria-controls="history"
                 aria-selected="false" method="GET" action="/formInfo">View Forms</a> --}}
         </li>
-        <li class="nav-item">
+        <li class="nav-item bolder-age nav-custom-button">
             <form id="attandanceForm" method="GET" action="/attandanceInfo">
                 <a class="nav-link {{attandanceActive}}" id="attendenceTab" data-toggle="tab" href="#attend" role="tab"
-                    aria-controls="attend" onclick="document.getElementById('attandanceForm').submit();" aria-selected="false">Attendence</a>
+                    aria-controls="attend" onclick="document.getElementById('attandanceForm').submit();" aria-selected="false">Registered
+                    for event</a>
             </form>
         </li>
     </ul>
@@ -79,7 +80,7 @@
 
                         <fieldset class="form-group">
                             <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">Age Limit</legend>
+                                <legend class="col-form-label col-sm-2 pt-0 bolder-age">Age Limit</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
                                         <input class="form-check-input radio-dot" type="radio" name="age" id="gridRadios1"
@@ -101,7 +102,7 @@
                         </fieldset>
                         <fieldset class="form-group">
                             <div class="row">
-                                <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                                <legend class="col-form-label col-sm-2 pt-0 bolder-age">Gender</legend>
                                 <div class="col-sm-10">
                                     <div class="form-check">
                                         <input class="form-check-input radio-dot" type="radio" name="gender" id="gridRadios1"
@@ -148,10 +149,21 @@
                 <div class="tab-pane  {{formInfoActive}}" id="history" role="tabpanel" aria-labelledby="history-tab">
                     {{#if empty}}
                     {{!-- <h1>Forms are not created</h1> --}}
-                    <div class="wrong-access-body">
+                    {{!-- <div class="wrong-access-body">
                         <div class="error-main">
                             <div class="sorry-heading">Sorry!</div>
                             <p class="wrong-access-p">No form is created yet. Please create a form. </p>
+                        </div>
+                    </div> --}}
+
+                    <div class="notfound-div">
+                        <div class="notfound">
+                            <div class="notfound-404"></div>
+                            <h1>Empty!!</h1>
+                            <h2>No forms created</h2>
+                            <p>Sorry  the section you are looking is empty.<br>Please add an event or visit again
+                                after sometime.</p>
+                            <a href="http://localhost:3000/admin?">Create Form</a>
                         </div>
                     </div>
 
@@ -179,6 +191,7 @@
                                             <p id="seats-{{_id}}">{{seats}} Seats | </p>
                                             <p id="age-{{_id}}">{{ageRestriction}} | </p>
                                             <p id="sex-{{_id}}">{{genderRestriction}}</p>
+                                            <p id="cost-{{_id}}"> | ${{cost}}/person</p>
                                         </div>
 
                                         <div class="row">
@@ -192,27 +205,27 @@
                                             <div class="form-group row">
                                                 <form method="POST" action="/adminDelete/{{_id}}">
                                                     <div class="col-sm-10">
-                                                        <button id="{{this._id}}" class=" deleteAdmin btn btn-primary btn-lg">Delete
+                                                        <button id="{{this._id}}" class=" deleteAdmin btn btn-primary btn-lg white-buttons">Delete
                                                             Form</button>
                                                     </div>
                                                 </form>
                                             </div>
 
-                                            <div class="form-group row">
-                                                <form id="idcommentAdmin" method="GET" action="/comment/{{_id}}">
+                                            <div class="form-group  row">
+                                                <form id="idcommentAdmin" class=" formDel" method="GET" action="/comment/{{_id}}">
                                                     <div class="form-group ">
                                                         <div>
-                                                            <button type="submit" class="btn comment-buton-admin btn-primary">Comments</button>
+                                                            <button type="submit" class="btn  comment-buton-admin btn-primary white-buttons">Comments</button>
                                                         </div>
 
                                                     </div>
                                                 </form>
                                             </div>
 
-                                            <div class="form-group row">
+                                            <div class="form-group  row">
                                                 <div class="col-sm-10">
 
-                                                    <button type="button" id="{{_id}}" class="editAdmin btn btn-primary"
+                                                    <button type="button" id="{{_id}}" class="editAdmin btn btn-primary white-buttons"
                                                         data-toggle="modal" data-target="#popupEdit-{{_id}}"
                                                         data-whatever="@mdo">Edit Form</button>
 
@@ -260,19 +273,19 @@
                                                                                 id="popup-event-seats-{{_id}}" name="noOfSeats"
                                                                                 placeholder="Seats">
                                                                         </div>
-                                                                        <div class="form-group row">
-                                                                            <label for="popup-event-cost" class="col-sm-2 col-form-label">Cost</label>
-                                                                            <div class="col-sm-10">
+                                                                        <div class="form-group ">
+                                                                            <label for="popup-event-cost" class="col-form-label">Cost</label>
+                                                                            {{!-- <div class="col-sm-10"> --}}
                                                                                 <input type="number" class="form-control"
-                                                                                    id="popup-event-cost-{{_id}}" name="cost"
-                                                                                    placeholder="cost for single ticket">
-                                                                            </div>
+                                                                                    id="popup-event-cost-{{_id}}" name="cost">
+                                                                                {{!-- </div> --}}
                                                                         </div>
                                                                         <fieldset class="form-group">
 
                                                                             <div class="row">
-                                                                                <legend class="col-form-label col-sm-4 pt-0 ">Age
-                                                                                    Limit</legend>
+                                                                                <label for="popup-event-above18-{{_id}}"
+                                                                                    class="col-form-label bolder-age col-sm-4 pt-0 ">Age
+                                                                                    Limit</label>
                                                                                 <div class="col-sm-10">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input radio-dot"
@@ -299,7 +312,8 @@
 
                                                                         <fieldset class="form-group">
                                                                             <div class="row">
-                                                                                <legend class="col-form-label col-sm-3 pt-0">Gender</legend>
+                                                                                <label for="popup-event-male-{{_id}}"
+                                                                                    class="col-form-label bolder-age col-sm-3 pt-0">Gender</label>
                                                                                 <div class="col-sm-10">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input radio-dot"
@@ -374,10 +388,11 @@
 
                 <div class="tab-pane   container attendDiv  {{attandanceActive}}" id="attand" role="tabpanel"
                     aria-labelledby="attand-tab">
+                    {{#if formsData}}
                     <div class="">
                         {{#each formsData}}
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-{{this.formId}}">
+                        <button type="button" class="btn btn-primary att-button" data-toggle="modal" data-target="#modal-{{this.formId}}">
                             <h1>{{this.formName}}</h1>
                         </button>
 
@@ -408,6 +423,17 @@
 
                         {{/each}}
                     </div>
+                    {{else}}
+                    <div class="notfound-div">
+                        <div class="notfound">
+                            <div class="notfound-404"></div>
+                            <h1>Empty!!</h1>
+                            <h2>No Comments Added</h2>
+                            <p>Sorry  the section you are looking is empty.
+                            {{!-- <a href="http://localhost:3000/admin?">Create Form</a> --}}
+                        </div>
+                    </div>
+                    {{/if}}
 
 
 

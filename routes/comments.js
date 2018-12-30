@@ -1,6 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
+const xss = require("xss");
 
 const mongoCollections = require("../setting/mongoCollection");
 const comment = mongoCollections.comment;
@@ -12,7 +13,9 @@ try {
 
         let cookie = req.cookies.name;
 
-        let formId = req.params.id;
+        let formId = xss(req.params.id);
+
+        let userComment;
 
         var userShow = true;
 
@@ -26,6 +29,7 @@ try {
             if (!cookie.includes("user")) {
                 showaddComment = "hide";
                 userShow = false;
+
             }
             else {
                 userId = cookie.replace("user", "");
@@ -42,44 +46,52 @@ try {
             if (form != null) {
                 let comments = form.user;
 
-                console.log(form);
+                // console.log(form);
 
-                
+
 
 
                 for (let prop in comments) {
 
-                    // console.log(comments[prop]);
 
-                    if (comments[prop].id == userId) {
-                        showaddComment = "hide";
-                    }
 
-                    // console.log("1");
+
                     let user = await data.getUser(comments[prop].id);
-                    // console.log(user);
-                    console.log("2");
+
                     let fullName = " ";
 
                     fullName = user.firstName + " " + user.lastName;
-                    // console.log("3");
+
 
                     let obj = {
                         name: fullName,
                         comment: comments[prop].comment
                     }
 
-                    dataComment.push(obj);
+                    if (comments[prop].id == userId) {
+                        showaddComment = "hide";
+                        dataComment.unshift(obj);
+                    }
+                    else {
+                        dataComment.push(obj);
+                    }
+                    
 
 
 
                 }
             }
 
+            if (dataComment.length == 0) {
+
+                userComment = true;
+
+            }
 
 
 
-            res.status(200).render("comments", { title: "Comments", userShow:userShow, show: true, dataComment: dataComment, form: formDetails, showaddComment: showaddComment });
+
+            res.status(200).render("comments", { title: "Comments", user: userComment, userShow: userShow, show: true, dataComment: dataComment, form: formDetails, showaddComment: showaddComment });
 
         }
         else {

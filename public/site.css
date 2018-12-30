@@ -48,7 +48,9 @@ main{
 
 .deleteAdmin , .editAdmin{
 margin-top:20px;
+
 }
+
 
 /* .box{
     width:40%;
@@ -640,3 +642,174 @@ ul {
     }
   }
   
+
+  /* new */
+  .bolder-age{
+      font-weight: 600;
+      text-decoration-line: none;
+  }
+
+  .white-buttons{
+      background-color: white;
+      color: #6354EC;
+}    
+
+.buttons-three{
+    width: 50%;
+    font-size: 25px;
+    text-align:center;
+}
+
+.formDel{
+    width: 112%;
+    margin-left: 80px;
+}
+
+.buttons-three-div{
+    text-align: -webkit-center;
+}
+
+.reg-div{
+    margin-top:5%;
+}
+
+.reg-header{
+    text-align:center;
+    
+   
+}
+
+.reg-header p{
+    color:black;
+    font-size: 62px;
+}
+
+.reg-div:last-child{
+    margin-bottom:10%;
+}
+
+.nav-custom-button{
+    width: 33%;
+    text-align: center;
+    
+}
+
+.nav-custom-butt{
+    background-color: #6351ec;
+    font-size:600;
+    color:white;
+}
+
+.att-button{
+    width:80%;
+    background-color: #6351ec;
+    font-size:600;
+    color:white;
+    margin-bottom:10%;
+}
+
+/* //Page not .not-found */
+
+
+.notfound-div {
+    height: 100vh;
+    position: relative;
+  }
+  
+  .notfound-div .notfound {
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    position: absolute;
+  }
+  
+  .notfound {
+    padding-left: 160px;
+    width: 100%;
+    line-height: 1.1;
+    max-width: 560px;
+  }
+  
+  .notfound .notfound-404 {
+    background-image: url('./img/emoji.png');
+    background-size: cover;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 140px;
+    position: absolute;
+  }
+  
+  .notfound .notfound-404:before {
+    -webkit-transform: scale(2.4);
+    height: 100%;
+    -ms-transform: scale(2.4);
+    transform: scale(2.4);
+    content: '';
+    background-color: #f2f5f8;
+    position: absolute;
+    width: 100%;
+    border-radius: 50%;
+    z-index: -1;
+  }
+  
+  .notfound h1 {
+    color: #151723;
+    text-transform: uppercase;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 65px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  
+  .notfound h2 {
+    color: #151723;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 21px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  
+  .notfound p {
+    color: #999fa5;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+  }
+  
+  .notfound a {
+    color: #3651ec;
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    border-radius: 40px;
+    text-decoration: none;
+  }
+  
+  @media only screen and (max-width: 767px) {
+    .notfound .notfound-404 {
+      height: 110px;
+      width: 110px;
+    }
+    .notfound {
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 110px;
+    }
+  }
+
+
+  .error{
+      color:red;
+      font-weight:300;
+  }
+
+  .coment-user{
+    width: 113px;
+  }
+  
+    

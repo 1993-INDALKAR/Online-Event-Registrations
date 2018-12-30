@@ -4,13 +4,14 @@ const router = express.Router();
 var nodemailer = require('nodemailer');
 let fs = require("fs");
 let path = require("path");
+const xss = require("xss");
 
 router.post("/:id", async (req, res) => {
 
 
     let formData = req.body;
 
-    let formId = req.params.id;
+    let formId = xss(req.params.id);
 
  
 
@@ -31,6 +32,8 @@ router.post("/:id", async (req, res) => {
 
 
             let registerUserToForm = await data.registerForm(formData, formId);
+
+            var formDetail = await data.getForm(formId);
 
        
 
@@ -59,8 +62,11 @@ router.post("/:id", async (req, res) => {
 
                     content = data;
 
+                    
+
                     content = content.replace("&name&", formData.name);
                     content = content.replace("&number&", formData.number);
+                    content = content.replace("&eventName&",formDetail.title);
 
                     let transporter = nodemailer.createTransport({
                         service: 'outlook',

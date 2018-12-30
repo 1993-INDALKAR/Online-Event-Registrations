@@ -2,6 +2,7 @@ const express = require("express");
 const data = require("../data");
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const xss = require("xss");
 
 router.post("/",async(req,res)=>{
 
@@ -11,18 +12,18 @@ router.post("/",async(req,res)=>{
    
     let error = [];
 
-    let firstName = req.body.First_Name;
-    let lastName = req.body.Last_Name;
-    let email = req.body.email;
-    let password = req.body.password;
-    let rePassword = req.body.repassword;
-    let dob = req.body.dob;
+    let firstName = xss(req.body.First_Name);
+    let lastName = xss(req.body.Last_Name);
+    let email = xss(req.body.email);
+    let password = xss(req.body.password);
+    let rePassword = xss(req.body.repassword);
+    let dob = xss(req.body.dob);
 
     if(/[^a-zA-Z]/.test(firstName)){
         error.push("First Name contains Number. Please enter correct Name.");
     }
 
-    if(/[^a-zA-Z]/.test(firstName)){
+    if(/[^a-zA-Z]/.test(lastName)){
         error.push("Last Name contains Number. Please enter correct Name.");
     }
 

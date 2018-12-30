@@ -1,5 +1,5 @@
 <main>
-    {{#if dataComment}}
+    {{!-- {{#if dataComment  }} --}}
     <div class="container">
 
         <div>
@@ -43,11 +43,22 @@
         </div>
 
     </div>
-    {{else}}
+    {{!-- {{else}} --}}
+
+    {{#if user}}
     <div>
-        <h1>Comments are not added by user</h1>
+        <div class="notfound-div">
+		<div class="notfound">
+			<div class="notfound-404"></div>
+			<h1>Empty!!</h1>
+			<h2>No Comments for now</h2>
+			<p>User has not added any comments.</p>
+			<a href="#">Add an event</a>
+		</div>
+	</div>
     </div>
     {{/if}}
+    {{!-- {{/if}} --}}
     {{!-- </div> --}}
 
 </main>

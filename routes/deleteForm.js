@@ -2,6 +2,7 @@ const express = require("express");
 const data = require("../data");
 const formInfoRoutes = require("./formInfo");
 const router = express.Router();
+const xss = require("xss");
 
 router.post("/:id", async (req, res) => {
 
@@ -14,8 +15,9 @@ router.post("/:id", async (req, res) => {
         if (cookie.includes("admin")) {
 
 
+            let formId = xss(req.params.id);
 
-            let del = await data.deleteForm(req.params.id);
+            let del = await data.deleteForm(formId);
 
 
 
@@ -31,13 +33,11 @@ router.post("/:id", async (req, res) => {
                 console.log("message"+message);
 
                 res.status(200).render("admin", { Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "", modal: "modal" });
-                // res.status(200).render('admin', { Message: message, title: 'Admin Page', show: true, formInfoActive: "", createFormActive: "active", modal: "modal",showMessage: true });
-                // res.status(200).render("admin", { modal: "modal", Message: message, title: 'Admin Page', createFormActive: "active", show: true, formInfoActive: "" });
-
+               
             }
             else {
 
-                console.log("message"+message);
+               
 
                 message.title = "Error";
                 message.description = "Sorry could not delete form."

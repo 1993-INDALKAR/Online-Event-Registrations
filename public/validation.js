@@ -16,6 +16,8 @@ if (attribute) {
 }
 
 
+
+
 //for calling delete routes  
 // $(".deleteAdmin").click(function () {
 
@@ -62,6 +64,7 @@ $(".editAdmin").click(function () {
   let idAge = "age-" + this.id;
   let idSex = "sex-" + this.id;
   let idSeats = "seats-" + this.id;
+  let idCost = "cost-" + this.id;
 
   var title = document.getElementById(idTitle).innerHTML;
   $("#popup-event-name-" + this.id).val(title);
@@ -108,6 +111,10 @@ $(".editAdmin").click(function () {
   var seats = document.getElementById(idSeats).innerHTML;
   seats = seats.replace("Seats |", "").trim();
   $("#popup-event-seats-" + this.id).val(seats);
+
+  var cost = document.getElementById(idCost).innerHTML;
+  cost = cost.replace(/[^0-9]/g,'');
+  $("#popup-event-cost-" + this.id).val(cost);
 
   $('.editForm').removeClass("disabled");
 
@@ -225,10 +232,11 @@ $('.personCollectingTicket, .noOfPeopleComming').on('change', function () {
 
     var $jqValue = $('#cost-display');
 
-    $(num).on('input', function (event) {
-      let sum = num * cost;
+    // $(num).on('input', function (event) {
+      let sum = `Total Cost for ${$(num).val()} people is $${$(num).val() * cost}`;  
+      
       $jqValue.html(sum);
-    });
+    // });
   }
   else {
     $(buttonId).addClass("disabled");

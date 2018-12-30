@@ -17,7 +17,7 @@
                 </div>
 
                 <div>
-                    <p5>{{errorLogin}}</p5>
+                    <p class="entire-black error">{{errorLogin}}</p>
                 </div>
 
                 <form id="signin" method="POST" action="/login" class="navbar-form signup-form navbar-right" role="form">
@@ -36,14 +36,14 @@
 
                     <button type="submit" class="btn btn-primary marg" id="login-btn">Login</button>
                 </form>
-                <div>
+                {{!-- <div>
                     <a id="pforget" href="" rel="noopener">Forgot password?</a>
-                </div>
+                </div> --}}
             </div>
 
             <div>
                 {{#each error}}
-                <p class="entire-black">{{this}}</p>
+                <p class="entire-black error">{{this}}</p>
                 {{/each}}
                 {{#if success}}
                 <p userShow>{{successMessage}}</p>

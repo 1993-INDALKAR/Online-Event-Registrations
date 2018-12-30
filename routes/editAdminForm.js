@@ -1,7 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
-
+const xss = require("xss");
 
 router.post("/:id", async (req, res) => {
 
@@ -13,9 +13,31 @@ router.post("/:id", async (req, res) => {
 
             let message = {};
 
-            let form = req.body;
-            let body = req.body;
-            let formId = req.params.id;
+            let body ={};
+            body.name = xss(req.body.name);
+            body.location = xss(req.body.location);
+            body.eventDate = xss(req.body.eventDate);
+            body.eventTime = xss(req.body.eventTime);
+            body.noOfSeats = xss(req.body.noOfSeats);
+            body.cost = xss(req.body.cost);
+            body.age = xss(req.body.age);
+            body.gender = xss(req.body.gender);
+            body.description = xss(req.body.description);
+
+            let form = body;
+
+            let formId = xss(req.params.id);
+
+            var today = new Date();
+
+            let month = today.getMonth();
+                month = month + 1;
+
+                var todayDate = `${today.getFullYear()}-${month}-${today.getDate()}`;
+               
+
+                var givendateComp = new Date(body.eventDate);
+                var todayDateComp = new Date(todayDate);
 
             
         if (body.name.length == 0) {
@@ -42,6 +64,11 @@ router.post("/:id", async (req, res) => {
         else if (body.noOfSeats.length == 0) {
 
             message.description = "Event Acomodation seats is Empty. Sory Could not update Form."
+
+        }
+        else if (givendateComp <= todayDateComp) {
+
+            message.description = "Event Date must be greater than todays date. Sorry Could not update Form."
 
         }
         else if(body.cost.includes("-")){
@@ -91,7 +118,7 @@ router.post("/:id", async (req, res) => {
             if (form.gender == "option1") {
                 form.gender = "M";
             }
-            else if (form.age == "option2") {
+            else if (form.gender == "option2") {
                 form.gender = "F";
             }
             else{

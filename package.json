@@ -7,7 +7,7 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Harish",
+  "author": "Harish Indalkar, Himanshu Chavan,Zuo Li,Shu Chao",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.2",
@@ -19,6 +19,7 @@
     "mongodb": "^3.1.10",
     "nodemailer": "^4.7.0",
     "path": "^0.12.7",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "xss": "^1.0.3"
   }
 }

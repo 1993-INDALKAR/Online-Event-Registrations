@@ -1,9 +1,12 @@
 <main>
     {{#if form}}
-    <div class="row">
+    <div class="reg-header">
+        <p>Please look into all of your registered Events. Please add comments so that others could view.</p>
+    </div>
+    <div class="row container">
         {{#each form}}
-        <div class="card col-md-12 col-lg-6 col-sm-12">
-            <div class="card-header">
+        <div class="card col-md-12 offset-4 reg-div col-lg-8  col-sm-12">
+            <div class="card-header nav-custom-butt">
                 <h1>{{this.title}}</h1>
             </div>
             <div class="card-body">
@@ -15,26 +18,27 @@
                 {{!-- <p class="card-text entire-black">{{description}}</p> --}}
                 <div class="div-form">
                     <form id="idcomments" method="GET" action="/comment/{{_id}}">
-                        <div class="form-group ">
+                        <div class="form-group buttons-three-div">
                             <div>
-                                <button type="submit" class="btn btn-primary">Comments</button>
+                                <button type="submit" class="btn buttons-three nav-custom-butt btn-primary">Comments</button>
 
                             </div>
 
                         </div>
                     </form>
                     <form id="idDelete" method="GET" action="/deleteRegisterUser/{{_id}}">
-                        <div class="form-group ">
+                        <div class="form-group buttons-three-div">
                             <div>
-                                <button type="submit" class="btn btn-primary">Cancel Ticket</button>
+                                <button type="submit" class="btn buttons-three nav-custom-butt btn-primary">Cancel
+                                    Ticket</button>
                             </div>
 
                         </div>
                     </form>
                     <form>
-                        <div class="form-group ">
+                        <div class="form-group buttons-three-div">
                             <div>
-                                <button type="button" data-toggle="modal" data-target="#exampleModal-{{_id}}" class="btn btn-primary">Change
+                                <button type="button" data-toggle="modal" data-target="#exampleModal-{{_id}}" class="btn buttons-three nav-custom-butt btn-primary">Change
                                     Registered Event</button>
                             </div>
 
@@ -47,40 +51,41 @@
         </div>
 
         <div class="modal fade" id="exampleModal-{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Registered Event</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Registered Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="idUpdateForm-{{_id}}" method="POST" action="/updateRegisterUser/{{_id}}">
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <input id="idname-{{_id}}" type="text" required class="form-control" placeholder="Name of Person Collecting Ticket."
+                                    name="personName">
+                            </div>
+
+                            <div class="form-group">
+                                <input id="idnum-{{_id}}" type="number" required class="form-control" name="numOfTickets"
+                                    placeholder="Number of people attending event.">
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn nav-custom-butt btn-primary">Save
+                                    Changes</button>
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
                 </div>
-                <form id="idUpdateForm-{{_id}}" method="POST" action="/updateRegisterUser/{{_id}}">
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <input id="idname-{{_id}}" type="text" required class="form-control" placeholder="Name of Person Collecting Ticket."
-                            name="personName">
-                    </div>
-
-                    <div class="form-group">
-                        <input id="idnum-{{_id}}" type="number" required class="form-control" name="numOfTickets" placeholder="Number of people attending event.">
-                    </div>
-
-                    <div>
-                        <button type="submit"  class="btn btn-primary">Save
-                            Changes</button>
-                    </div>
-
-
-                </div>
-
-                </form>
-               
             </div>
         </div>
-    </div>
         {{!-- <div class="col-md-12 col-lg-6 col-sm-12">
             <h2>{{this.title}}</h2>
         </div> --}}
@@ -89,7 +94,15 @@
 
     {{else}}
     <div>
-        <h1>you havenot yet registered</h1>
+        <div class="notfound-div">
+            <div class="notfound">
+                <div class="notfound-404"></div>
+                <h1>Empty!!</h1>
+                <h2>No events are registered by you.</h2>
+                <p>Please register for event and hep us serve you better</p>
+                {{!-- <a href="http://localhost:3000/admin?">Create Form</a> --}}
+            </div>
+        </div>
     </div>
     {{/if}}
 

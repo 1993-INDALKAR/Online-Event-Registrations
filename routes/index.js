@@ -92,14 +92,14 @@ try {
             let forms = await data.getAllForms();
 
             res.json(forms);
-        })
+        });
 
         app.get("/allform/:id", async (req, res) => {
 
             let forms = await data.getForm(req.params.id);
 
             res.json(forms);
-        })
+        });
 
         app.get("/allRegisterForms", async (req, res) => {
             let reg = await data.getRegisterUserToForm();
@@ -116,6 +116,19 @@ try {
         app.use("/deleteUser/:id", async (req, res) => {
             let dat = await data.deleteUser(req.params.id);
             let users = await data.getAllUsers();
+            res.json(users);
+        });
+
+        app.use("/deleteRefisteredForm/:id",async (req,res)=>{
+
+            let del = await data.deleteRefisteredForm(req.params.id);
+            res.redirect("/allRegisterForms");
+
+        });
+
+        app.use("/deleteForm/:id", async (req, res) => {
+            let dat = await data.deleteForm(req.params.id);
+            let users = await data.getAllForms();
             res.json(users);
         });
 

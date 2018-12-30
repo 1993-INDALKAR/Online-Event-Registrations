@@ -1,6 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
+const xss = require("xss");
 
 router.get("/:id", async (req, res) => {
 
@@ -11,10 +12,9 @@ router.get("/:id", async (req, res) => {
 
         if (cookie.includes("user")) {
 
-            let formId = req.params.id;
+            let formId = xss(req.params.id);
             let formDetail = await data.getForm(formId);
 
-            // console.log(formDetail);
 
             if(!formDetail.hasOwnProperty("message")){
 

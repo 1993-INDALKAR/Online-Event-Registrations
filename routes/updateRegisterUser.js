@@ -4,6 +4,7 @@ const router = express.Router();
 let fs = require("fs");
 let path = require("path");
 let nodemailer = require("nodemailer");
+const xss = require("xss");
 
 try {
 
@@ -22,11 +23,9 @@ try {
 
                 let dataComment = req.body;
 
-                console.log(dataComment);
-
-                let formId = req.params.id;
-
                 
+
+                let formId = xss(req.params.id);
 
 
                 let update = await data.updateUserRegisteredEvent(dataComment, formId, userid);
@@ -45,6 +44,8 @@ try {
 
                     let filePath = path.join(__dirname, "../public", fileName);
 
+                    var form = await data.getForm(formId);
+
 
                     let content = "";
 
@@ -55,8 +56,11 @@ try {
 
                         content = data;
 
-                        content = content.replace("&name&", dataComment.name);
-                        content = content.replace("&number&", dataComment.number);
+                        
+
+                        content = content.replace("&name&", dataComment.personName);
+                        content = content.replace("&number&", dataComment.numOfTickets);
+                        content = content.replace("&eventName&", form.title);
 
                         let transporter = nodemailer.createTransport({
                             service: 'outlook',

@@ -1,6 +1,7 @@
 const express = require("express");
 const data = require("../data");
 const router = express.Router();
+const xss = require("xss");
 
 
 try{
@@ -16,13 +17,9 @@ try{
 
                 let comment = req.body.comments;
 
-                let formID = req.params.id;
+                let formID = xss(req.params.id);
 
                 let userId = cookie.replace("user","");
-
-                console.log(comment);
-                console.log(formID);
-                console.log(userId);
 
                 let addComment = await data.addComment(comment,userId,formID);
 

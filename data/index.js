@@ -38,12 +38,12 @@ module.exports = {
                 };
 
 
-                console.log("query"+query);
-                console.log("updateCommand"+updateCommand);
 
                 let reg = formRegisterCollection.updateOne(
-                    { "formId":formId,
-                      "user.id": userId },
+                    {
+                        "formId": formId,
+                        "user.id": userId
+                    },
                     {
                         $set: {
                             "user.$.name": updateData.name,
@@ -52,7 +52,7 @@ module.exports = {
                         }
                     });
 
-                console.log("reg:" + reg);
+
 
 
 
@@ -88,7 +88,6 @@ module.exports = {
 
             if (user != null) {
 
-                // console.log(data.userId);
 
                 let updateData = {
                     id: data.userId,
@@ -96,12 +95,7 @@ module.exports = {
                     number: data.number
                 };
 
-                //   user.user.push(updateData);
 
-                //   let update = user.user;
-
-                // console.log(update);
-                // console.log(user);
 
                 let updateCommand = {
                     $addToSet: { user: updateData }
@@ -111,28 +105,19 @@ module.exports = {
                     _id: user._id
                 };
 
-                // console.log(query);
-                // console.log(updateCommand);
 
-                // console.log("hi");
 
                 let reg = await formRegisterCollection.updateOne(query, updateCommand);
 
-                console.log(reg);
 
-                // console.log(reg);
-
-                console.log("1");
 
                 if (reg == null) {
                     return { message: "Could notUpdate form" };
                 }
 
-                console.log("2");
 
                 return await this.getRegisterUserToForm(id);
 
-                // console.log(user.user);
 
             }
             else {
@@ -161,7 +146,6 @@ module.exports = {
 
             if (form != null) {
 
-                // console.log(data.userId);
 
                 let updateData = {
                     id: userId,
@@ -188,7 +172,7 @@ module.exports = {
                 }
 
 
-                // return await this.getAddedComment(id);
+
 
                 return reg;
 
@@ -209,31 +193,37 @@ module.exports = {
 
     async createComment(data, userId, formId) {
 
-        const commentCollection = await comment();
+        try {
 
-        let newComment = {
-            _id: uuidv1(),
-            formId: formId,
-            user: [{
-                id: userId,
-                comment: data
+            const commentCollection = await comment();
+
+            let newComment = {
+                _id: uuidv1(),
+                formId: formId,
+                user: [{
+                    id: userId,
+                    comment: data
+                }
+                ]
             }
-            ]
+
+            const insertInfo = await commentCollection.insertOne(newComment);
+            if (insertInfo.insertedCount === 0) return { message: "Could not Create comment" };
+            const newId = insertInfo.insertedId;
+            const reg = await this.getAddedComment(newId);
+
+            return reg;
         }
-
-        const insertInfo = await commentCollection.insertOne(newComment);
-        if (insertInfo.insertedCount === 0) return { message: "Could not Create comment" };
-        const newId = insertInfo.insertedId;
-        const reg = await this.getAddedComment(newId);
-
-        return reg;
+        catch (e) {
+            console.log(e);
+        }
     },
 
     async getAddedComment(id) {
 
         try {
 
-            // console.log(id);
+
 
             if (typeof id != "string") {
                 return { message: "id is not a string in getRecipe function" };
@@ -274,18 +264,10 @@ module.exports = {
 
             const objId = await formRegisterCollection.findOne({ formId: idForm });
 
-            // console.log(objId._id);
-
-            // let del = await formRegisterCollection.update(
-            //     { '_id': ObjectId(objId._id) },
-            //     { $pull: { "user": { "id": userId } } },
-            //     false,
-            //     true
-            // );
 
             let del = await formRegisterCollection.findOneAndUpdate({ _id: objId._id }, { $pull: { user: { "id": userId } } });
 
-            // console.log(del);
+
             if (del == null) return { message: "Could not delete form." };
 
             return del;
@@ -301,7 +283,7 @@ module.exports = {
 
         try {
 
-            // console.log(id);
+
 
             if (!id) return { message: "Please Provide an ID." };
 
@@ -312,16 +294,10 @@ module.exports = {
             const formRegisterCollection = await register();
 
             let formExist = {};
-            // formExist = await this.get(id);
-            // // console.log(formExist);
-            // if (userExist.message) {
-            //     return formExist;
-            // }
 
 
             const formReg = await formRegisterCollection.removeOne({ _id: id });
 
-            // console.log(form);
 
             // if (form === null) return { message: `Could not delete recipe with the ID "${id}" from database.` };
             if (formReg === null) return false
@@ -340,79 +316,97 @@ module.exports = {
 
     async getallRegisteredForms() {
 
-        const formRegisterCollection = await register();
+        try {
+
+            const formRegisterCollection = await register();
 
 
-        const formsData = await formRegisterCollection.find({}).toArray();
+            const formsData = await formRegisterCollection.find({}).toArray();
 
-        return formsData;
+            return formsData;
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+
 
 
     },
 
     async createRegisterForm(data, id) {
 
-        const formRegisterCollection = await register();
+        try {
 
-        let newFormRegister = {
-            _id: uuidv1(),
-            formId: id,
-            user: [{
-                id: data.userId,
-                name: data.name,
-                number: data.number
+            const formRegisterCollection = await register();
+
+            let newFormRegister = {
+                _id: uuidv1(),
+                formId: id,
+                user: [{
+                    id: data.userId,
+                    name: data.name,
+                    number: data.number
+                }
+                ]
             }
-            ]
+
+
+            const insertInfo = await formRegisterCollection.insertOne(newFormRegister);
+            if (insertInfo.insertedCount === 0) return { message: "Could not Create User" };
+            const newId = insertInfo.insertedId;
+            const reg = await this.getRegisterUserToForm(newId);
+
+            return reg;
+
         }
-
-
-        const insertInfo = await formRegisterCollection.insertOne(newFormRegister);
-        if (insertInfo.insertedCount === 0) return { message: "Could not Create User" };
-        const newId = insertInfo.insertedId;
-        const reg = await this.getRegisterUserToForm(newId);
-
-        return reg;
+        catch (e) {
+            console.log(e);
+        }
 
 
     },
 
     async checkFormRegisteredByUser(id) {
+        try {
 
-        const formRegisterCollection = await register();
+            const formRegisterCollection = await register();
 
-        // console.log(id);
 
-        const form = await formRegisterCollection.findOne({ formId: id });
+            const form = await formRegisterCollection.findOne({ formId: id });
 
-        return form;
+            return form;
+        }
+        catch (e) {
+            console.log(e);
+        }
     },
 
     async getRegisterUserExist(idUser) {
+        try {
 
-        if (typeof idUser != "string") {
-            return { message: "id is not a string in getRecipe function" };
+            if (typeof idUser != "string") {
+                return { message: "id is not a string in getRecipe function" };
+            }
+
+            if (!idUser) return { message: "Please Provide an ID." };
+
+            const formRegisterCollection = await register();
+
+            const users = await formRegisterCollection.find(
+                { "user.id": idUser },
+                { "user": { $elemMatch: { id: idUser } } });
+
+
+            if (users === null) return { message: `There is no such form with the ID "${id}" in database.` };
+
+            return users;
+
         }
-
-        if (!idUser) return { message: "Please Provide an ID." };
-
-        const formRegisterCollection = await register();
-
-        // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-
-        // const user = await formRegisterCollection.findOne({ user : {$elemMatch : {id : id} } });
-        // const user = await formRegisterCollection.find({ user : {$elemMatch : {id : id} } });       
-        // const user = await formRegisterCollection.find({ "user.id" : id });
-        const users = await formRegisterCollection.find(
-            { "user.id": idUser },
-            { "user": { $elemMatch: { id: idUser } } });
-
-        // console.log(user);
-
-        // console.log(users.user);
-
-        if (users === null) return { message: `There is no such form with the ID "${id}" in database.` };
-
-        return users;
+        catch (e) {
+            console.log(e);
+        }
 
     },
 
@@ -420,7 +414,7 @@ module.exports = {
 
         try {
 
-            // console.log(id);
+
 
             if (typeof id != "string") {
                 return { message: "id is not a string in getRecipe function" };
@@ -455,32 +449,47 @@ module.exports = {
 
     async createUser(data) {
 
+        try {
 
-        const userCollection = await users();
+            const userCollection = await users();
 
-        let hash = bcrypt.hashSync(data.password, 10);
+            let hash = bcrypt.hashSync(data.password, 10);
 
-        let newUser = {
-            _id: uuidv1(),
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            password: data.password,
-            dob: data.dob,
-            password: hash,
-            type: "U"
+
+            let type;
+
+            if (data.hasOwnProperty("type")) {
+                type = data.type;
+            }
+            else {
+                type = "U";
+            }
+
+            let newUser = {
+                _id: uuidv1(),
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
+                dob: data.dob,
+                password: hash,
+                type: type
+            }
+
+
+
+            const insertInfo = await userCollection.insertOne(newUser);
+            if (insertInfo.insertedCount === 0) return { message: "Could not Create User" };
+            const newId = insertInfo.insertedId;
+            const user = await this.getUser(newId);
+
+
+            return user;
+
         }
-
-
-
-        const insertInfo = await userCollection.insertOne(newUser);
-        if (insertInfo.insertedCount === 0) return { message: "Could not Create User" };
-        const newId = insertInfo.insertedId;
-        const user = await this.getUser(newId);
-
-        // console.log(task);
-
-        return user;
+        catch (e) {
+            console.log(e);
+        }
 
     },
 
@@ -488,7 +497,7 @@ module.exports = {
 
         try {
 
-            // console.log(id);
+
 
             if (typeof id != "string") {
                 return { message: "id is not a string in getRecipe function" };
@@ -498,7 +507,7 @@ module.exports = {
 
             const userCollection = await users();
 
-            // console.log("id:"+id);
+
 
             const user = await userCollection.findOne({ _id: id });
 
@@ -537,9 +546,6 @@ module.exports = {
 
         try {
 
-            // if (!title) throw "You must provide a Title for TASK";
-
-            // if (!description) throw "You must provide a Description for TASK";
 
 
 
@@ -620,7 +626,7 @@ module.exports = {
 
         try {
 
-            // console.log(id);
+
 
             if (typeof id != "string") {
                 return { message: "id is not a string in getRecipe function" };
@@ -634,7 +640,6 @@ module.exports = {
 
             if (form === null) return { message: `There is no such form with the ID "${id}" in database.` };
 
-            // console.log(form);
             return form;
 
         }
@@ -648,19 +653,17 @@ module.exports = {
 
         try {
 
-            // console.log(id);
+
 
             if (!id) return { message: "Please Provide an ID." };
 
-            // if(typeof id != "string"){
-            //     return {message : "id is not a string in deleteRecipe function"};
-            // }
+
 
             const userCollection = await users();
 
             let userExist = {};
             userExist = await this.getUser(id);
-            // console.log(formExist);
+
             if (userExist.message) {
                 return formExist;
             }
@@ -668,11 +671,10 @@ module.exports = {
 
             const user = await userCollection.removeOne({ _id: id });
 
-            // console.log(form);
 
-            // if (form === null) return { message: `Could not delete recipe with the ID "${id}" from database.` };
-            if (user === null) return false
-            // else return {message : "Form is Deleted"};
+
+            if (user === null) return false;
+
             else return true
 
         }
@@ -685,11 +687,27 @@ module.exports = {
 
     },
 
+    async deleteRefisteredForm(id) {
+        try {
+
+            const formRegisterCollection = await register();
+
+         
+
+
+            const form = await formRegisterCollection.removeOne({ _id: id });
+
+            return form;
+        }
+        catch (e) {
+            console.log(e);
+        }
+    },
+
     async deleteForm(id) {
 
         try {
 
-            // console.log(id);
 
             if (!id) return { message: "Please Provide an ID." };
 
@@ -701,7 +719,6 @@ module.exports = {
 
             let formExist = {};
             formExist = await this.getForm(id);
-            // console.log(formExist);
             if (formExist.message) {
                 return formExist;
             }
@@ -709,11 +726,8 @@ module.exports = {
 
             const form = await taskCollection.removeOne({ _id: id });
 
-            // console.log(form);
 
-            // if (form === null) return { message: `Could not delete recipe with the ID "${id}" from database.` };
-            if (form === null) return false
-            // else return {message : "Form is Deleted"};
+            if (form === null) return false;
             else return true
 
         }
@@ -812,8 +826,6 @@ module.exports = {
                 _id: id
             };
 
-            // console.log(query);
-            // console.log(updateCommand);
 
             const taskCollection = await todoItems();
 
@@ -853,7 +865,6 @@ module.exports = {
 
         const userExist = await userCollection.findOne({ email: email });
 
-        // console.log(userExist);
 
         return userExist;
 
